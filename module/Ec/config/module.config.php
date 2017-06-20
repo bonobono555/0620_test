@@ -87,6 +87,8 @@ return array(
             'Ec\Controller\Index' => 'Ec\Controller\IndexController',
             'Ec\Controller\List' => 'Ec\Controller\ListController', // Ecで作成したコントローラー
             'Ec\Controller\User' => 'Ec\Controller\UserController', // userコントローラー
+            'Ec\Controller\Form' => 'Ec\Controller\FormController',  // Formコントローラー フォーム登録
+            'Ec\Controller\Auth' => 'Ec\Controller\AuthController',  // Authコントローラー ログイン機能
         ),
     ),
     'view_manager' => array(
