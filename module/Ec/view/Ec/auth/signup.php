@@ -13,6 +13,17 @@ and open the template in the editor.
     <?php
     // put your code here
     echo 'hello zf2!';
+
+    $title = 'signup form';
+    $this->headTitle($title);
+
+    $form = $this->form;
+    echo $this->form()->openTag($form);
+    echo $this->formRow($form->get('email'));
+    echo $this->formRow($form->get('password'));
+    echo $this->formHidden($form->get('csrf'));
+    echo $this->formSubmit($form->get('submit'));
+    echo $this->form()->closeTag($form);
     ?>
   </body>
 </html>
