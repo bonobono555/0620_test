@@ -15,6 +15,7 @@ use Zend\Form\Form;
 use Ec; // 参考URLにはなかったが追加する
 
 /**
+ * フォーム機能
  * Description of FormController
  *
  * @author onoe-azusa
