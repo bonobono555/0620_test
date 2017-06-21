@@ -12,17 +12,15 @@ namespace Ec;
 
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
-
 // DB接続のため追加----
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
 use Ec\Model\UserTable;
-use Ec\Model\User;
-use Ec\Model\LoginTable; //ログインテーブル 
-//-----------------------
-
+use Ec\Model\User; // UserTable
+use Ec\Model\PeopleTable; // PeopleTable
+// -----------------------
 use Zend\Db\Adapter\Adapter;    // ←追加
-use Zend\Db\TableGateway\Feature\GlobalAdapterFeature;    // ←追加
+use Zend\Db\TableGateway\Feature\GlobalAdapterFeature; // ←追加
 
 class Module
 {
@@ -63,16 +61,21 @@ class Module
         GlobalAdapterFeature::setStaticAdapter($adapter);
     }
 
-    
-    
     // DB接続のため追加----
     public function getServiceConfig()
     {
         return array(
             'factories' => array(
+                // UserTable追加
                 'Ec\Model\UserTable' => function($sm) {
                     $tableGateway = $sm->get('UserTableGateway');
                     $table = new UserTable($tableGateway);
+                    return $table;
+                },
+                // PeopleTable追加
+                'Ec\Model\PeopleTable' => function($serviceManager) {
+                    $dbAdapter = $serviceManager->get('Zend\Db\Adapter\Adapter');
+                    $table = new PeopleTable($dbAdapter);
                     return $table;
                 },
                 'UserTableGateway' => function($sm) {
@@ -86,9 +89,4 @@ class Module
             ),
         );
     }
-    // DB接続のため追加----
-    
-    
-    // ログインテーブルのDBの追加はどうすればいいか？
-
 }
