@@ -5,6 +5,9 @@ use Zend\Db\Adapter\Adapter;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\AbstractTableGateway;
 
+/*
+ * DBとオブジェクトをつなぐクラス
+ */
 class PeopleTable extends AbstractTableGateway
 {
     protected $table = 'people';
@@ -19,6 +22,10 @@ class PeopleTable extends AbstractTableGateway
         $this->initialize();
     }
 
+    /**
+     * PeopleテーブルにINSERT
+     * 
+     */
     public function registerPeople(People $people)
     {
         $data = array(

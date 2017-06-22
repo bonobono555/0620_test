@@ -4,13 +4,18 @@ namespace Ec\Model;
 
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\Factory as InputFactory;
-
-class People implements InputFilterAwareInterface
+/**
+ * 具体的なデータに対応するクラス
+ */
+class People 
 {
     public $email;
     public $password;
     private $inputFilter;
 
+    /*
+     * 配列型のデータを受け取り、メンバ変数に格納
+     */
     public function exchangeArray(array $data)
     {
         $this->email = (isset($data['email'])) ? $data['email'] : null;
