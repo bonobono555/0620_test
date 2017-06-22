@@ -1,11 +1,5 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace Ec\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
@@ -14,10 +8,10 @@ use Ec\Model\People;
 use Ec\Form\LoginForm;
 use Zend\Authentication\Adapter\DbTable as AuthAdapter;
 use Zend\Authentication\AuthenticationService;
+use Zend\View\Model\ViewModel; //viewモデル
 
 /**
  * ログイン機能
- * Description of AuthController
  *
  * @author onoe-azusa
  */
@@ -66,6 +60,9 @@ class AuthController extends AbstractActionController
      */
     public function loginAction()
     {
+        // viewモデル
+        $view = new ViewModel;
+
         $form = new LoginForm();
         $request = $this->getRequest();
 
@@ -73,7 +70,7 @@ class AuthController extends AbstractActionController
             $people = new People();
             $form->setInputFilter($people->getInputFilter());
             $form->setData($request->getPost());
-            
+
             if ($form->isValid()) {
                 $dbAdapter = $this->getDbAdapter();
                 $authAdapter = new AuthAdapter($dbAdapter);
@@ -86,13 +83,19 @@ class AuthController extends AbstractActionController
                 // 必須ではないがAuthenticationServiceを利用
                 $auth = new AuthenticationService();
                 $result = $auth->authenticate($authAdapter);
+                // ログイン失敗でもtrueにいってしまう
+                if ($result->isValid()) {
+                    return $this->loginTrueAction();
+                } else {
+                    return $this->loginFalseAction();
+                }
                 exit(var_dump($result->isValid()));
             }
         }
-                // viewにformの値を渡す
+        // viewにformの値を渡す
         return array('form' => $form);
     }
-
+    
     /*
      * データベースと接続するアダプターを取得
      */
@@ -103,5 +106,21 @@ class AuthController extends AbstractActionController
             $this->dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
         }
         return $this->dbAdapter;
+    }
+    
+    /*
+     * 
+     */
+    public function loginTrueAction()
+    {
+        
+    }
+    
+    /*
+     * 
+     */
+    public function loginFalseAction()
+    {
+        
     }
 }
