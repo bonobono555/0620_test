@@ -1,22 +1,15 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace Ec\Form;
 
 use Zend\Form\Form;
 use Zend\Form\Element;  //csrf用のタグの出力に利用
 
 /**
- * Description of RegisterForm
+ * ユーザー登録用のフォーム
  *
  * @author onoe-azusa
  */
-
 class RegisterForm extends Form
 {
     public function __construct()

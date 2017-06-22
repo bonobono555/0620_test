@@ -1,23 +1,18 @@
 <?php
+
 namespace Ec\Form;
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 use Zend\Captcha\AdapterInterface as CaptchaAdapter;
 use Zend\Form\Element;
 use Zend\Form\Form;
 
 /**
- * Description of ContractForm
+ * フォーム練習用のフォーム
  *
  * @author onoe-azusa
  */
 class ContractForm extends Form
 {
-    //put your code here
     protected $captcha;
  
     public function setCaptcha(CaptchaAdapter $captcha)

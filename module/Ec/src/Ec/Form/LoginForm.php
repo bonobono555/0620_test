@@ -5,7 +5,7 @@ use Zend\Form\Form;
 use Zend\Form\Element;
 
 /**
- * Description of LoginForm
+ * ログイン機能用のフォーム
  *
  * @author onoe-azusa
  */
