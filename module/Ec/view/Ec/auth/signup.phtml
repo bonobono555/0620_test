@@ -1,12 +1,14 @@
 <!--ログイン画面-->
 
+
+<!--ユーザー登録機能-->
     <?php
-    // put your code here
-    echo 'hello zf2!';
+    echo 'user regist';
 
     $title = 'signup form';
     $this->headTitle($title);
-
+    
+    // フォーム
     $form = $this->form;
     echo $this->form()->openTag($form);
     echo $this->formRow($form->get('email'));

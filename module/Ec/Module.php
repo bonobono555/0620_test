@@ -37,12 +37,14 @@ class Module
 
     public function getConfig()
     {
+        // configファイルの配置
         return include __DIR__ . '/config/module.config.php';
     }
 
     public function getAutoloaderConfig()
     {
         return array(
+            // srcフォルダ（公式ドキュメントと同様にsrcフォルダ内にモジュール名のフォルダを作成し、その中をオートロードするように設定）
             'Zend\Loader\StandardAutoloader' => array(
                 'namespaces' => array(
                     __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
