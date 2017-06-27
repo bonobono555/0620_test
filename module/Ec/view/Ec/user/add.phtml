@@ -1,7 +1,36 @@
-<h1>hello world @o@!! add  DB connection!!!</h1>
+<?php
 
+echo 'hello';
 
+echo $key1;
+echo $key2;
+$form = $this->form;
+echo('<pre>');
+var_dump($form->get('name'));
+echo('</pre>');
 
+//$form->setAttribute('action', 'ec/user/index');
+
+$form = $form->setAttribute('action',$this->url(
+        // ecではないのか謎
+        'application',
+        array(
+            'controller' => 'user',
+            'action' => 'add',
+        )
+        ));
+
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('name'));
+echo $this->formRow($form->get('name'));
+echo $this->formRow($form->get('email'));
+echo $this->formRow($form->get('password'));
+echo $this->formRow($form->get('comment'));
+echo $this->formRow($form->get('url'));
+echo $this->formSubmit($form->get('submit'));
+echo $this->form()->closeTag($form);
+
+?>
 
 
 

@@ -1,21 +1,34 @@
-<!--ログイン画面-->
+<?php
 
- <?php
-
-$title = 'signup form';
-$this->headTitle($title);
+echo 'edit';
 
 $form = $this->form;
+echo('<pre>');
+var_dump($form->get('name'));
+echo('</pre>');
 
-// 遷移先指定（ログイン失敗でもtrueにいってしまう。）
-//$form->setAttribute('action', 'login_true');
+//$form->setAttribute('action', 'ec/user/index');
+
+$form = $form->setAttribute('action',$this->url(
+        // ecではないのか謎
+        'application',
+        array(
+            'controller' => 'user',
+            'action' => 'edit',
+            'id' => $this->id,
+        )
+        ));
 
 echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('id'));
+echo $this->formRow($form->get('name'));
 echo $this->formRow($form->get('email'));
 echo $this->formRow($form->get('password'));
-echo $this->formHidden($form->get('csrf'));
+echo $this->formRow($form->get('comment'));
+echo $this->formRow($form->get('url'));
 echo $this->formSubmit($form->get('submit'));
 echo $this->form()->closeTag($form);
+
 ?>
 
 
