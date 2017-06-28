@@ -6,7 +6,7 @@ use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
-
+//implements InputFilterAwareInterface
 class User 
 {
     public $id;
@@ -23,9 +23,9 @@ class User
         $this->id = (isset($data['id'])) ? $data['id'] : 0;
         $this->name = (isset($data['name'])) ? $data['name'] : '';
         $this->email = (isset($data['email'])) ? $data['email'] : '';
-        $this->email = (isset($data['email'])) ? $data['password'] : '';
-        $this->email = (isset($data['email'])) ? $data['comment'] : '';
-        $this->email = (isset($data['email'])) ? $data['url'] : '';
+        $this->email = (isset($data['password'])) ? $data['password'] : '';
+        $this->email = (isset($data['comment'])) ? $data['comment'] : '';
+        $this->email = (isset($data['url'])) ? $data['url'] : '';
 
     }
     
@@ -35,15 +35,15 @@ class User
         throw new \Exception("Not used");    
     }
 
-    public function getInputFilter($param)
+    public function getInputFilter()
     {
         if (!$this->inputFilter)
         {
-            $inputFiter = new InputFilter();
+            $inputFilter = new InputFilter();
             $factory = new InputFactory();
             
             // id
-            $inputFiter->add($factory->createInput(array(
+            $inputFilter->add($factory->createInput(array(
                 'name' => 'id',
                 'required' => true,
                 'filters' => array(
@@ -52,7 +52,7 @@ class User
             )));
             
             // name
-            $inputFiter->add($factory->createInput(array(
+            $inputFilter->add($factory->createInput(array(
                 'name' => 'name',
                 'required' => false,
                 'filters' => array(
@@ -72,7 +72,7 @@ class User
             )));
             
             // email
-            $inputFiter->add($factory->createInput(array(
+            $inputFilter->add($factory->createInput(array(
                 'name' => 'email',
                 'required' => true,
                 'filters' => array(
@@ -92,7 +92,7 @@ class User
             )));
             
             // password
-            $inputFiter->add($factory->createInput(array(
+            $inputFilter->add($factory->createInput(array(
                 'name' => 'password',
                 'required' => true,
                 'filters' => array(
@@ -112,7 +112,7 @@ class User
             )));
             
             // comment
-            $inputFiter->add($factory->createInput(array(
+            $inputFilter->add($factory->createInput(array(
                 'name' => 'comment',
                 'required' => false,
                 'filters' => array(
@@ -132,7 +132,7 @@ class User
             )));
 
             // url
-            $inputFiter->add($factory->createInput(array(
+            $inputFilter->add($factory->createInput(array(
                 'name' => 'url',
                 'required' => false,
                 'filters' => array(
@@ -151,7 +151,7 @@ class User
                 ),
             )));
             
-            $this->inputFilter = $inputFiter;
+            $this->inputFilter = $inputFilter;
         }
         
         return $this->inputFilter;
