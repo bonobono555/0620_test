@@ -29,6 +29,13 @@ class UserController extends AbstractActionController
     // ユーザ情報一覧画面
     public function indexAction()
     {
+        $values = array(
+            'users' => $this->getUserTable()->fetchAll(),
+        );
+        
+        $view = new ViewModel( $values );
+        
+        return $view;
         
     }
     
@@ -44,50 +51,77 @@ class UserController extends AbstractActionController
     // ユーザ情報詳細画面
     public function detailAction()
     {
+        $id = (int) $this->params()->fromRoute('id', 0);
+        if (!$id){
+            return $this->redirect()->toRoute('application', array(
+                'controller' =>'user',
+                'action' => 'index'
+            ));
+        }
+        $user = $this->getUserTable()->getUser($id);
+        
+        $value = array(
+            'user' => $user,
+        );
+        $view = new ViewModel($value);
+        
+        return $view;
         
     }    
     
     // ユーザ情報追加画面
     public function addAction() 
     {
-        // フォームオブジェクトのインスタンスを作成
-        $form = new UserForm();
-        
         // 03のチュートリアル
 //        $user = new User();
 //        $user->name = "testname";
 //        $user->email = "testemail";
 //        $this->getUserTable()->saveUser($user);
-        
+//
+//        $values = array(
+//            'key1' => 'value1',
+//            'key2' => 'value2',
+//        );        
+
+        // フォームオブジェクトのインスタンスを作成
+        $form = new UserForm();
+                
         // 04のシステム作成
         $form->get('submit')->setValue('tourokuGO!');
         
         $request = $this->getRequest();
-//        var_dump($request);
         if ($request->isPost())
         {
             $user = new User();
+            // ユーザモデル用のフィルタをフォームのフィルタとして設定
             $form->setInputFilter($user->getInputFilter());
+            // post投稿された値をsetData()にてフォーム要素に設定
             $form->setData($request->getPost());
             
-//            var_dump($form);
+            // フォームに登録したフィルタと、フォームが保持する値の検証をisValid()で行う
             if ($form->isValid())
             {
+                // ユーザーモデルの値を初期化
                 $user->exchangeArray($form->getData());
+                // DB登録
                 $this->getUserTable()->saveUser($user);
-//                var_dump($user);
-                
+                echo('<pre>');
+                var_dump($this->getUserTable()->saveUser($user));
+                echo('</pre>');
+                exit;
                 return $this->redirect()->toRoute('application', array(
                     'controller' => 'user',
                     'action' => 'index'
                 ));
+            } else {
+                foreach ($form->getMessages() as $messageId => $message){
+                    echo "error         '$messageId': $message\n";                    
+                }
             }
         }
         
         // ビューへ渡す値を連想配列にて指定
         $values = array(
-            'key1' => 'value1',
-            'key2' => 'value2',
             'form' => $form,
         );
         
