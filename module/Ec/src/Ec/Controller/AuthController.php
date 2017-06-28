@@ -31,8 +31,9 @@ class AuthController extends AbstractActionController
         // ポストされている場合
         if ($request->isPost()) {
             $people = new People();
-            // getInputFilterでフィルターを実行（バリデーション的な感じ？）
+            // ユーザモデル用のフィルタをフォームのフィルタとして設定
             $form->setInputFilter($people->getInputFilter());
+            // post投稿された値をsetData()にてフォーム要素に設定
             $form->setData($request->getPost());
 
             if ($form->isValid()) {
