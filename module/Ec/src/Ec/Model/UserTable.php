@@ -39,7 +39,11 @@ class UserTable
         $data = array(
             'name' => $user->name,
             'email' => $user->email,
-        );
+            'password' => $user->password,
+            'comment' => $user->comment,
+            'url' => $user->url,
+            
+            );
         $id = (int)$user->id;
         if ($id == 0) {
             $this->tableGateway->insert($data);
