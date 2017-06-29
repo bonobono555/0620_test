@@ -1,3 +1,52 @@
+■機能
+
+
+    Auth
+
+        [ホスト名]/ec/auth/login
+        ログイン機能
+
+        [ホスト名]/ec/auth/signup
+        ユーザ登録画面
+
+
+        説明
+        [ホスト名]/ec/auth/signup にて登録したユーザで
+        [ホスト名]/ec/auth/login にログインできる
+
+
+    User
+
+        [ホスト名]/ec/user/add
+        ユーザ新規登録画面
+
+        [ホスト名]/ec/user/add
+        ユーザ編集画面
+
+        [ホスト名]/ec/user/add
+        ユーザ削除画面
+
+        [ホスト名]/ec/user/detail
+        ユーザ詳細画面
+
+        [ホスト名]/ec/user/index
+        ユーザ一覧画面
+
+        説明
+
+
+    Form
+
+        [ホスト名]/ec/form/index
+        フォーム登録画面
+
+        説明
+        [ホスト名]/ec/form/index でフォーム送信すると
+        次の画面でフォームの内容が表示される。
+
+
+
+
 ZendSkeletonApplication
 =======================
 
