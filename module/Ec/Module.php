@@ -68,13 +68,13 @@ class Module
     {
         return array(
             'factories' => array(
-                // UserTable追加
+                // UserTable追加 インスタンス作成している
                 'Ec\Model\UserTable' => function($sm) {
                     $tableGateway = $sm->get('UserTableGateway');
                     $table = new UserTable($tableGateway);
                     return $table;
                 },
-                // PeopleTable追加
+                // PeopleTable追加 インスタンス作成している
                 'Ec\Model\PeopleTable' => function($serviceManager) {
                     $dbAdapter = $serviceManager->get('Zend\Db\Adapter\Adapter');
                     $table = new PeopleTable($dbAdapter);
