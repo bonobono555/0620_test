@@ -49,7 +49,7 @@ class UserForm  extends Form
                 'type' => 'email',
             ),
             'options' => array(
-                'label' => 'email'
+                'label' => 'email !required!'
             ),
         ));
         
@@ -59,7 +59,7 @@ class UserForm  extends Form
                 'type' => 'password',
             ),
             'options' => array(
-                'label' => 'password'
+                'label' => 'password !required!'
             ),
         ));
         
