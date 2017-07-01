@@ -3,9 +3,6 @@
 echo 'edit';
 
 $form = $this->form;
-echo('<pre>');
-var_dump($form->get('name'));
-echo('</pre>');
 
 $form = $form->setAttribute('action',$this->url(
         'ec',
