@@ -1,15 +1,43 @@
-<h1>hello world^o^</h1>
+<p>
+    <a href ="<?php echo $this->url('ec',
+                    array('controller' => 'user',
+                        'action' => 'add',
+                    )); ?>"> new USER! </a>
+</p>
 
-<p>DB fetch start</p>
-<?php
-    foreach ($users as $user):
-        echo $user->id . '|';
-        echo $user->name . '|';
-        echo $user->email . '|';
-        echo '<br/>';
-    endforeach;
-?>
-<p>DB end</p>
+<table class="table">
+    <tr>
+        <th>id</th>
+        <th>Name</th>
+        <th>&nbsp;</th>
+    </tr>
+<?php     foreach ( $users as $user) : ?>
+    <tr>
+        <td><?php echo $this->escapeHtml($user->id); ?></td>
+        <td><?php echo $this->escapeHtml($user->name); ?></td>
+        <td>
+        <a href ="<?php echo $this->url('ec',
+                    array('controller' => 'user',
+                        'action' => 'detail',
+                        'id' => $user->id
+                    )); ?>"> detail </a>
+        <a href ="<?php echo $this->url('ec',
+                    array('controller' => 'user',
+                        'action' => 'edit',
+                        'id' => $user->id
+                    )); ?>"> edit </a>
+        <a href ="<?php echo $this->url('ec',
+                    array('controller' => 'user',
+                        'action' => 'delete',
+                        'id' => $user->id
+                    )); ?>"> delete </a>
+        </td>
+    </tr>
+<?php endforeach; ?>
+</table>
+
+
+
 
 <div class="jumbotron">
     <h1><?php echo sprintf($this->translate('Welcome to %sZend Framework 2%s'), '<span class="zf-green">', '</span>') ?></h1>

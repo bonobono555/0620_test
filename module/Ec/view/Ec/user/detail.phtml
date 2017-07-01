@@ -1,23 +1,43 @@
-<!--ログイン画面-->
 
- <?php
 
-$title = 'signup form';
-$this->headTitle($title);
-
-$form = $this->form;
-
-// 遷移先指定（ログイン失敗でもtrueにいってしまう。）
-//$form->setAttribute('action', 'login_true');
-
-echo $this->form()->openTag($form);
-echo $this->formRow($form->get('email'));
-echo $this->formRow($form->get('password'));
-echo $this->formHidden($form->get('csrf'));
-echo $this->formSubmit($form->get('submit'));
-echo $this->form()->closeTag($form);
-?>
-
+<table class ="table">
+    <tr>
+        <th>id</th><td><?php echo $this->escapeHtml($user->id); ?></td>
+    </tr>
+    <tr>
+        <th>Name</th><td><?php echo $this->escapeHtml($user->name); ?></td>
+    </tr>
+    <tr>
+        <th>EMail</th><td><?php echo $this->escapeHtml($user->email); ?></td>
+    </tr>
+    <tr>
+        <th>Password</th><td><?php echo $this->escapeHtml($user->password); ?></td>
+    </tr>
+    <tr>
+        <th>Comment</th><td><?php echo $this->escapeHtml($user->comment); ?></td>
+    </tr>
+    <tr>
+        <th>Url</th><td><?php echo $this->escapeHtml($user->url); ?></td>
+    </tr>
+    <tr>
+        <th>id</th><td><?php echo $this->escapeHtml($user->id); ?></td>
+    </tr>
+    <tr>
+        <th>&nbsp;</th>
+        <td>
+            <a href ="<?php echo $this->url('ec',
+                    array('controller' => 'user',
+                        'action' => 'edit',
+                        'id' => $user->id
+                    )); ?>"> EDIT </a>
+            <a href ="<?php echo $this->url('ec',
+                    array('controller' => 'user',
+                        'action' => 'delete',
+                        'id' => $user->id
+                    )); ?>"> DELETE </a>
+        </td>        
+    </tr>   
+</table>
 
 <div class="jumbotron">
     <h1><?php echo sprintf($this->translate('Welcome to %sZend Framework 2%s'), '<span class="zf-green">', '</span>') ?></h1>

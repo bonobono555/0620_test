@@ -25,10 +25,10 @@ return array(
             // module. Simply drop new controllers in, and you can access them
             // using the path /application/:controller/:action
             // /ecのルーティング設定
-            'application' => array(
-                'type' => 'Literal',
+            'ec' => array(
+                'type' => 'Segment',
                 'options' => array(
-                    'route' => '/ec',
+                    'route' => '/ec[/:controller[/:action[/:id]]]',
                     'defaults' => array(
                         '__NAMESPACE__' => 'Ec\Controller',
                         'controller' => 'Index',
@@ -42,7 +42,7 @@ return array(
                     'default' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => '/[:controller[/:action]]',
+                            'route' => '/[:controller[/:action[/:id]]]',
                             'constraints' => array(
                                 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action' => '[a-zA-Z][a-zA-Z0-9_-]*',

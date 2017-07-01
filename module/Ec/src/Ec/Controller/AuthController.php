@@ -31,8 +31,9 @@ class AuthController extends AbstractActionController
         // ポストされている場合
         if ($request->isPost()) {
             $people = new People();
-            // getInputFilterでフィルターを実行（バリデーション的な感じ？）
+            // ユーザモデル用のフィルタをフォームのフィルタとして設定
             $form->setInputFilter($people->getInputFilter());
+            // post投稿された値をsetData()にてフォーム要素に設定
             $form->setData($request->getPost());
 
             if ($form->isValid()) {
@@ -82,6 +83,7 @@ class AuthController extends AbstractActionController
                 $authAdapter->setIdentity($peopleData['email'])->setCredential($peopleData['password']);
                 // 必須ではないがAuthenticationServiceを利用
                 $auth = new AuthenticationService();
+                // 認証処理を実行し、結果を取得
                 $result = $auth->authenticate($authAdapter);
                 // ログイン失敗でもtrueにいってしまう
                 if ($result->isValid()) {
@@ -113,7 +115,7 @@ class AuthController extends AbstractActionController
      */
     public function loginTrueAction()
     {
-        
+        return new ViewModel();        
     }
     
     /*
@@ -121,6 +123,6 @@ class AuthController extends AbstractActionController
      */
     public function loginFalseAction()
     {
-        
+        return new ViewModel();        
     }
 }

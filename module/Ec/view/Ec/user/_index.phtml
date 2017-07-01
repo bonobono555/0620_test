@@ -1,23 +1,15 @@
-<!--ログイン画面-->
+<h1>hello world^o^</h1>
 
- <?php
-
-$title = 'signup form';
-$this->headTitle($title);
-
-$form = $this->form;
-
-// 遷移先指定（ログイン失敗でもtrueにいってしまう。）
-//$form->setAttribute('action', 'login_true');
-
-echo $this->form()->openTag($form);
-echo $this->formRow($form->get('email'));
-echo $this->formRow($form->get('password'));
-echo $this->formHidden($form->get('csrf'));
-echo $this->formSubmit($form->get('submit'));
-echo $this->form()->closeTag($form);
+<p>DB fetch start</p>
+<?php
+    foreach ($users as $user):
+        echo $user->id . '|';
+        echo $user->name . '|';
+        echo $user->email . '|';
+        echo '<br/>';
+    endforeach;
 ?>
-
+<p>DB end</p>
 
 <div class="jumbotron">
     <h1><?php echo sprintf($this->translate('Welcome to %sZend Framework 2%s'), '<span class="zf-green">', '</span>') ?></h1>
