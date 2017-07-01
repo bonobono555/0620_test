@@ -1,5 +1,5 @@
 <p>
-    <a href ="<?php echo $this->url('application',
+    <a href ="<?php echo $this->url('ec',
                     array('controller' => 'user',
                         'action' => 'add',
                     )); ?>"> new USER! </a>
@@ -16,17 +16,17 @@
         <td><?php echo $this->escapeHtml($user->id); ?></td>
         <td><?php echo $this->escapeHtml($user->name); ?></td>
         <td>
-        <a href ="<?php echo $this->url('application',
+        <a href ="<?php echo $this->url('ec',
                     array('controller' => 'user',
                         'action' => 'detail',
                         'id' => $user->id
                     )); ?>"> detail </a>
-        <a href ="<?php echo $this->url('application',
+        <a href ="<?php echo $this->url('ec',
                     array('controller' => 'user',
                         'action' => 'edit',
                         'id' => $user->id
                     )); ?>"> edit </a>
-        <a href ="<?php echo $this->url('application',
+        <a href ="<?php echo $this->url('ec',
                     array('controller' => 'user',
                         'action' => 'delete',
                         'id' => $user->id

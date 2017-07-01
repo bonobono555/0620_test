@@ -2,18 +2,13 @@
 
 echo 'hello';
 
-//echo $key1;
-//echo $key2;
+// チャプター03
+// echo $key1;
+// echo $key2;
 $form = $this->form;
-echo('<pre>');
-var_dump($form->get('name'));
-echo('</pre>');
-
-//$form->setAttribute('action', 'ec/user/index');
 
 $form = $form->setAttribute('action',$this->url(
-        // ecではないのか謎
-        'application',
+        'ec',
         array(
             'controller' => 'user',
             'action' => 'add',

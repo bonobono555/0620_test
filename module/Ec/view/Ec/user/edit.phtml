@@ -7,11 +7,8 @@ echo('<pre>');
 var_dump($form->get('name'));
 echo('</pre>');
 
-//$form->setAttribute('action', 'ec/user/index');
-
 $form = $form->setAttribute('action',$this->url(
-        // ecではないのか謎
-        'application',
+        'ec',
         array(
             'controller' => 'user',
             'action' => 'edit',
