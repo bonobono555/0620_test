@@ -1,75 +1,97 @@
 ■機能
 
-    Auth
+    ■掲示板
+        Index
 
-        [ホスト名]/ec/auth/login
-        ログイン機能
+            [ホスト名]/ec/index/login
+            ログイン機能
+            [ホスト名]/ec/user/indexにログインできる
 
-        [ホスト名]/ec/auth/signup
-        ユーザ登録画面
+            [ホスト名]/ec/index/logout
+            ログアウト機能
+            [ホスト名]/ec/user/indexからログアウトできる
+
+        User
+
+            [ホスト名]/ec/user/add
+            ユーザ新規登録画面
+            登録時バリデーション実施
+
+            [ホスト名]/ec/user/add
+            ユーザ編集画面
+
+            [ホスト名]/ec/user/add
+            ユーザ削除画面
+
+            [ホスト名]/ec/user/detail
+            ユーザ詳細画面
+
+            [ホスト名]/ec/user/index
+            ユーザ一覧画面
+
+            説明
+            index画面からユーザの登録・編集・詳細表示・削除が行える。
+
+    ■練習
+        Auth
+
+            [ホスト名]/ec/auth/login
+            ログイン機能
+
+            [ホスト名]/ec/auth/signup
+            ユーザ登録画面
 
 
-        説明
-        [ホスト名]/ec/auth/signup にて登録したユーザで
-        [ホスト名]/ec/auth/login にログインできる
+            説明
+            [ホスト名]/ec/auth/signup にて登録したユーザで
+            [ホスト名]/ec/auth/login にログインできる
 
+        Form
 
-    User
+            [ホスト名]/ec/form/index
+            フォーム登録画面
 
-        [ホスト名]/ec/user/add
-        ユーザ新規登録画面
-        登録時バリデーション実施
-
-        [ホスト名]/ec/user/add
-        ユーザ編集画面
-
-        [ホスト名]/ec/user/add
-        ユーザ削除画面
-
-        [ホスト名]/ec/user/detail
-        ユーザ詳細画面
-
-        [ホスト名]/ec/user/index
-        ユーザ一覧画面
-
-        説明
-        index画面からユーザの登録・編集・詳細表示・削除が行える。
-
-    Form
-
-        [ホスト名]/ec/form/index
-        フォーム登録画面
-
-        説明
-        [ホスト名]/ec/form/index でフォーム送信すると
-        次の画面でフォームの内容が表示される。
+            説明
+            [ホスト名]/ec/form/index でフォーム送信すると
+            次の画面でフォームの内容が表示される。
 
         
 ■使用DB
 
-    データベース
+    ■データベース
+
         Ec
 
-    テーブル
-        User
+    ■テーブル
 
-        CREATE TABLE `User` (
-      `id` int(11) NOT NULL COMMENT 'ID',
-      `name` varchar(32) CHARACTER SET utf8 DEFAULT NULL COMMENT '名前',
-      `email` varchar(64) CHARACTER SET utf8 DEFAULT NULL COMMENT 'メールアドレス',
-      `password` varchar(16) CHARACTER SET utf8 DEFAULT NULL COMMENT 'ログインパスワード',
-      `comment` text CHARACTER SET utf8 COMMENT '自己紹介文',
-      `url` varchar(64) CHARACTER SET utf8 DEFAULT NULL COMMENT 'サイトアドレス'
-    ) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+        ・User
 
-    テーブル
-        People
+            CREATE TABLE `User` (
+          `id` int(11) NOT NULL COMMENT 'ID',
+          `name` varchar(32) CHARACTER SET utf8 DEFAULT NULL COMMENT '名前',
+          `email` varchar(64) CHARACTER SET utf8 DEFAULT NULL COMMENT 'メールアドレス',
+          `password` varchar(16) CHARACTER SET utf8 DEFAULT NULL COMMENT 'ログインパスワード',
+          `comment` text CHARACTER SET utf8 COMMENT '自己紹介文',
+          `url` varchar(64) CHARACTER SET utf8 DEFAULT NULL COMMENT 'サイトアドレス'
+        ) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-        CREATE TABLE `People` (
-        `id` int(100) unsigned NOT NULL,
-        `email` varchar(300) CHARACTER SET utf8 NOT NULL,
-        `password` varchar(300) CHARACTER SET utf8 NOT NULL
-      ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+        ・Comment
+        
+            CREATE TABLE `Comment` (
+              `id` int(11) NOT NULL,
+              `title` varchar(255) CHARACTER SET utf8 NOT NULL,
+              `comment` text CHARACTER SET utf8 NOT NULL,
+              `parent_id` int(11) NOT NULL,
+              `user_id` int(11) NOT NULL
+            ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+        ・People
+
+            CREATE TABLE `People` (
+            `id` int(100) unsigned NOT NULL,
+            `email` varchar(300) CHARACTER SET utf8 NOT NULL,
+            `password` varchar(300) CHARACTER SET utf8 NOT NULL
+          ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 
 ZendSkeletonApplication
