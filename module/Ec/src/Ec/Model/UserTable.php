@@ -15,6 +15,7 @@ class UserTable
         
     }
     
+    // 全てのレコードを取得
     public function fetchAll()
     {
         $resultSet = $this->tableGateway->select();
@@ -33,10 +34,15 @@ class UserTable
         return $row;
     }
     
-    // レコード新規作成・更新
+    /* レコード新規作成・更新
+     * 
+     * @param array $user ユーザ情報モデルクラス
+     */
     public function saveUser(User $user)
     {
+        // 引数を配列に置き換え
         $data = array(
+            'id' => $user->id,
             'name' => $user->name,
             'email' => $user->email,
             'password' => $user->password,
@@ -45,10 +51,13 @@ class UserTable
             
             );
         $id = (int)$user->id;
+        
+        // IDがなければINSERT
         if ($id == 0) {
             $this->tableGateway->insert($data);
-            
+        // IDがあればUPDATE    
         } else {
+            // ID情報をもとにレコード取得
             if ( $this->getUser($id)){
                 $this->tableGateway->update($data, array('id' => $id));
             } else {
