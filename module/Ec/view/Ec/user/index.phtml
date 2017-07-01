@@ -1,3 +1,19 @@
+
+<!--変更メッセージ-->
+<?php if( strlen( $message ) ) : ?>
+<div style='padding:4px; margin:4px; border:dotted 2px #448800; background:#ddffdd;'>
+    <?php  echo $message; ?>
+</div>
+<?php endif; ?>
+
+<!--ログインユーザー名の表示-->
+<?php
+    if( $login_user->id ){
+        echo 'Welcome! Mr.'.$this->escapeHtml($login_user->name) . '  login now';
+    }
+?>
+
+
 <p>
     <a href ="<?php echo $this->url('ec',
                     array('controller' => 'user',
@@ -36,8 +52,8 @@
 <?php endforeach; ?>
 </table>
 
-
-
+<!--ログアウト-->
+<h3><a href="http://localhost:8888/0620_test/public/ec/index/logout" >logout</a></h3>
 
 <div class="jumbotron">
     <h1><?php echo sprintf($this->translate('Welcome to %sZend Framework 2%s'), '<span class="zf-green">', '</span>') ?></h1>
