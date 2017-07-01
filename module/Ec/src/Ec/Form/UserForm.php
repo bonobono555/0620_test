@@ -11,7 +11,7 @@ namespace Ec\Form;
 use Zend\Form\Form;
 
 /**
- * Description of UserForm
+ * フォーム処理のまとめ
  *
  * @author onoeadusa
  */
@@ -20,7 +20,11 @@ class UserForm  extends Form
     public function __construct($name = null) 
     {
         parent::__construct('user');
+        
+        // アトリビュート
         $this->setAttribute('method', 'post');
+        
+        // フォーム要素の追加
         $this->add(array(
             'name' => 'id',
             'attributes' => array(
@@ -86,8 +90,6 @@ class UserForm  extends Form
             'attributes' => array(
                 'type' => 'submit',
                 'value' => 'Go',
-            ),
-            'options' => array(
                 'label' => 'submitbutton'
             ),
         ));
