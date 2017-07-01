@@ -12,6 +12,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Ec\Form\UserForm;
 use Ec\Model\User;
+use Ec\Model\Auth;
 /**
  * Description of User
  *
@@ -29,8 +30,27 @@ class UserController extends AbstractActionController
     // ユーザ情報一覧画面
     public function indexAction()
     {
+        $auth = new Auth();
+        // ログイン情報保持
+        $login_user = $auth->getLoginUser();
+         
+        // フラッシュマネージャープラグインのハンドルを取得
+        $flashMessenger = $this->flashMessenger();
+ 
+        // 現在の要求中に追加されたものがあるのかチェック
+        $message = '';
+        if( $flashMessenger->hasMessages() ){
+ 
+            // メッセージの取得（配列）
+            $message_array = $flashMessenger->getMessages();
+
+            // 初めのメッセージを取得
+           $message = $message_array[0];
+        }
         $values = array(
             'users' => $this->getUserTable()->fetchAll(),
+            'message' => $message,
+            'login_user' => $login_user,
         );
         
         $view = new ViewModel( $values );
@@ -110,6 +130,7 @@ class UserController extends AbstractActionController
                     'controller' => 'user',
                     'action' => 'index'
                 ));
+                
             }
             // バリデーションが通らなかった場合、エラーメッセージを表示
             else {
@@ -146,7 +167,6 @@ class UserController extends AbstractActionController
             ));
         }
         $user = $this->getUserTable()->getUser($id);
-        var_dump($user);
         $form = new UserForm;
         $form->bind($user);
         $form->get('submit')->setAttribute('value', 'edit');
@@ -166,6 +186,9 @@ class UserController extends AbstractActionController
                     'controller' => 'user',
                     'action' => 'index'
                 ));
+                // 一覧画面で以下のメッセージを表示する
+                $this->flashMessenger()->addMessage( $user->name . "さんの情報を編集しました。" );
+
             }
         }
         
@@ -202,6 +225,9 @@ class UserController extends AbstractActionController
                 'controller' => 'user',
                 'action' => 'index'
             ));
+            // 一覧画面で以下のメッセージを表示する
+            $this->flashMessenger()->addMessage( $user->name . "さんの情報を編集しました。" );
+            
         }
         
         $values = array(
