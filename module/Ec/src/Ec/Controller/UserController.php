@@ -39,6 +39,7 @@ class UserController extends AbstractActionController
         
     }
     
+    // ServiceManagerで生成されたインスタンスを取得
     public function getUserTable()
     {
         if (!$this->userTable){
@@ -53,7 +54,7 @@ class UserController extends AbstractActionController
     {
         $id = (int) $this->params()->fromRoute('id', 0);
         if (!$id){
-            return $this->redirect()->toRoute('application', array(
+            return $this->redirect()->toRoute('ec', array(
                 'controller' =>'user',
                 'action' => 'index'
             ));
@@ -72,7 +73,7 @@ class UserController extends AbstractActionController
     // ユーザ情報追加画面
     public function addAction() 
     {
-        // 03のチュートリアル
+        // チャプター03
 //        $user = new User();
 //        $user->name = "testname";
 //        $user->email = "testemail";
@@ -96,7 +97,7 @@ class UserController extends AbstractActionController
             // ユーザモデル用のフィルタをフォームのフィルタとして設定
             $form->setInputFilter($user->getInputFilter());
             // post投稿された値をsetData()にてフォーム要素に設定
-            $form->setData($request->getPost());
+            $form->setData($request->getPost());              
             
             // フォームに登録したフィルタと、フォームが保持する値の検証をisValid()で行う
             if ($form->isValid())
@@ -105,17 +106,18 @@ class UserController extends AbstractActionController
                 $user->exchangeArray($form->getData());
                 // DB登録
                 $this->getUserTable()->saveUser($user);
-                echo('<pre>');
-                var_dump($this->getUserTable()->saveUser($user));
-                echo('</pre>');
-                exit;
-                return $this->redirect()->toRoute('application', array(
+                return $this->redirect()->toRoute('ec', array(
                     'controller' => 'user',
                     'action' => 'index'
                 ));
-            } else {
+            }
+            // バリデーションが通らなかった場合、エラーメッセージを表示
+            else {
+                $message = [];
                 foreach ($form->getMessages() as $messageId => $message){
-                    echo "error         '$messageId': $message\n";                    
+                    var_dump($messageId);
+                    echo "<br>";
+                    var_dump($message);                
                 }
             }
         }
@@ -138,7 +140,7 @@ class UserController extends AbstractActionController
     {
         $id = (int) $this->params()->fromRoute('id', 0);
         if (!$id){
-            return $this->redirect()->toRoute('application', array(
+            return $this->redirect()->toRoute('ec', array(
                 'controller' => 'user',
                 'action' => 'index'
             ));
@@ -154,14 +156,13 @@ class UserController extends AbstractActionController
             // 翻訳ファイルの適用
 //            $this->getTranslator->addTranslationFile('phparrray','パス表記');
             
-            // getInputfilterの継承がおかしい？
             $form->setInputFilter($user->getInputfilter());
             $form->setData($request->getPost());
             
             if ($form->isValid()){
                 $this->getUserTable()->saveUser($form->getData());
                 
-                return $this->redirect()->toRoute('application', array(
+                return $this->redirect()->toRoute('ec', array(
                     'controller' => 'user',
                     'action' => 'index'
                 ));
@@ -182,7 +183,7 @@ class UserController extends AbstractActionController
     {
         $id = (int) $this->params()->fromRoute('id', 0);
         if (!$id){
-            return $this->redirect()->toRoute('application', array(
+            return $this->redirect()->toRoute('ec', array(
                 'controller' => 'user',
                 'action' => 'index'
             ));
@@ -197,7 +198,7 @@ class UserController extends AbstractActionController
                 $this->getUserTable()->deleteUser($id);
             }
             
-            return $this->redirect()->toRoute('application', array(
+            return $this->redirect()->toRoute('ec', array(
                 'controller' => 'user',
                 'action' => 'index'
             ));
