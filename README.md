@@ -1,6 +1,5 @@
 ■機能
 
-
     Auth
 
         [ホスト名]/ec/auth/login
@@ -19,6 +18,7 @@
 
         [ホスト名]/ec/user/add
         ユーザ新規登録画面
+        登録時バリデーション実施
 
         [ホスト名]/ec/user/add
         ユーザ編集画面
@@ -33,7 +33,7 @@
         ユーザ一覧画面
 
         説明
-
+        index画面からユーザの登録・編集・詳細表示・削除が行える。
 
     Form
 
@@ -44,7 +44,32 @@
         [ホスト名]/ec/form/index でフォーム送信すると
         次の画面でフォームの内容が表示される。
 
+        
+■使用DB
 
+    データベース
+        Ec
+
+    テーブル
+        User
+
+        CREATE TABLE `User` (
+      `id` int(11) NOT NULL COMMENT 'ID',
+      `name` varchar(32) CHARACTER SET utf8 DEFAULT NULL COMMENT '名前',
+      `email` varchar(64) CHARACTER SET utf8 DEFAULT NULL COMMENT 'メールアドレス',
+      `password` varchar(16) CHARACTER SET utf8 DEFAULT NULL COMMENT 'ログインパスワード',
+      `comment` text CHARACTER SET utf8 COMMENT '自己紹介文',
+      `url` varchar(64) CHARACTER SET utf8 DEFAULT NULL COMMENT 'サイトアドレス'
+    ) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+    テーブル
+        People
+
+        CREATE TABLE `People` (
+        `id` int(100) unsigned NOT NULL,
+        `email` varchar(300) CHARACTER SET utf8 NOT NULL,
+        `password` varchar(300) CHARACTER SET utf8 NOT NULL
+      ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 
 ZendSkeletonApplication
