@@ -29,10 +29,10 @@ class Comment implements InputFilterAwareInterface
         // なければデフォルト値をメンバへ格納しています。
         // デフォルト値はデータベースの絡むの型と揃える
         $this->id = (isset($data['id'])) ? $data['id'] : 0;
-        $this->name = (isset($data['title'])) ? $data['title'] : '';
-        $this->email = (isset($data['comment'])) ? $data['comment'] : '';
-        $this->password = (isset($data['parent_id'])) ? $data['parent_id'] : '';
-        $this->comment = (isset($data['user_id'])) ? $data['user_id'] : '';
+        $this->title = (isset($data['title'])) ? $data['title'] : '';
+        $this->comment = (isset($data['comment'])) ? $data['comment'] : '';
+        $this->parent_id = (isset($data['parent_id'])) ? $data['parent_id'] : '';
+        $this->user_id = (isset($data['user_id'])) ? $data['user_id'] : '';
 
     }
     
