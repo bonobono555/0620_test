@@ -78,18 +78,18 @@ class Module
                     return $table;
                 },
                 // CommentTable追加 インスタンス作成している
-                'Ec\Model\CommentTable' => function($serviceManager) {
-                    $dbAdapter = $serviceManager->get('Zend\Db\Adapter\Adapter');
-                    $table = new PeopleTable($dbAdapter);
+                'Ec\Model\CommentTable' => function($sm) {
+                    $tableGateway = $sm->get('CommentTableGateway');
+                    $table = new CommentTable($tableGateway);
                     return $table;
                 },
-
-                // PeopleTable追加 インスタンス作成している
+                // PeopleTable追加 インスタンス作成している(※User,Commentとは違う仕組みになっている)
                 'Ec\Model\PeopleTable' => function($serviceManager) {
                     $dbAdapter = $serviceManager->get('Zend\Db\Adapter\Adapter');
                     $table = new PeopleTable($dbAdapter);
                     return $table;
                 },
+                // UserTableGateway
                 'UserTableGateway' => function($sm) {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                     $resultSetPrototype = new ResultSet();
@@ -98,6 +98,15 @@ class Module
                             'user', $dbAdapter, null, $resultSetPrototype
                     );
                 },
+                // CommentTableGateway
+                'CommentTableGateway' => function($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Comment());
+                    return new TableGateway(
+                            'comment', $dbAdapter, null, $resultSetPrototype
+                    );
+                },                         
             ),
         );
     }
