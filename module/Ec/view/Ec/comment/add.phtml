@@ -1,3 +1,11 @@
+<?php 
+$title = 'COMMENT ADD';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+
+
 <?php
 $form = $this->form;
 $form->setAttribute('action', $this->url(
@@ -17,6 +25,11 @@ echo $this->formHidden($form->get('user_id'));
 echo $this->formSubmit($form->get('submit'));
 echo $this->form()->closeTag();
 ?>
+
+        <a href="<?php echo $this->url('ec',
+            array('controller'=>'user',
+                'action'=>'index'
+                ));?>">USER ALL</a>
 
 
 <div class="jumbotron">

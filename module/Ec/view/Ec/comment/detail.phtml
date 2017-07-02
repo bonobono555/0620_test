@@ -1,3 +1,9 @@
+<?php 
+$title = 'COMMENT DETAIL';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
 <?php if( strlen( $message ) ) : ?>
 <div style='padding:4px; margin:4px; border:dotted 2px #448800; background:#ddffdd;'>
     <?php  echo $message; ?>
