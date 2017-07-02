@@ -4,45 +4,51 @@ $this->headTitle($title);
 ?>
 <h1><?php echo $this->escapeHtml($title); ?></h1>
 
-<table class ="table">
-    <tr>
-        <th>id</th><td><?php echo $this->escapeHtml($user->id); ?></td>
-    </tr>
-    <tr>
-        <th>Name</th><td><?php echo $this->escapeHtml($user->name); ?></td>
-    </tr>
-    <tr>
-        <th>EMail</th><td><?php echo $this->escapeHtml($user->email); ?></td>
-    </tr>
-    <tr>
-        <th>Password</th><td><?php echo $this->escapeHtml($user->password); ?></td>
-    </tr>
-    <tr>
-        <th>Comment</th><td><?php echo $this->escapeHtml($user->comment); ?></td>
-    </tr>
-    <tr>
-        <th>Url</th><td><?php echo $this->escapeHtml($user->url); ?></td>
-    </tr>
-    <tr>
-        <th>id</th><td><?php echo $this->escapeHtml($user->id); ?></td>
-    </tr>
-    <tr>
-        <th>&nbsp;</th>
-        <td>
-            <a href ="<?php echo $this->url('ec',
-                    array('controller' => 'user',
-                        'action' => 'edit',
-                        'id' => $user->id
-                    )); ?>"> EDIT </a>
-            <a href ="<?php echo $this->url('ec',
-                    array('controller' => 'user',
-                        'action' => 'delete',
-                        'id' => $user->id
-                    )); ?>"> DELETE </a>
-        </td>        
-    </tr>   
+<table class="table">
+<?php if( $isSelf ) : ?>
+<tr>
+    <th>id</th><td><?php echo $this->escapeHtml($user->id);?></td>
+</tr>
+<?php endif; ?>
+<tr>
+    <th>Name</th><td><?php echo $this->escapeHtml($user->name);?></td>
+</tr>
+<?php if( $isSelf ) : ?>
+<tr>
+    <th>EMail</th><td><?php echo $this->escapeHtml($user->email);?></td>
+</tr>
+<tr>
+    <th>Password</th><td><?php echo $this->escapeHtml($user->password);?></td>
+</tr>
+<?php endif; ?>
+<tr>
+    <th>Comment</th><td><?php echo $this->escapeHtml($user->comment);?></td>
+</tr>
+<tr>
+    <th>Url</th><td><?php echo $this->escapeHtml($user->url);?></td>
+</tr>
+<tr>
+    <th>&nbsp;</th><td>
+        <a href="<?php echo $this->url('ec',
+            array('controller'=>'user',
+                'action'=>'index'
+                ));?>">BACK USER ALL</a>
+<?php if( $isSelf ) : ?>
+        <a href="<?php echo $this->url('ec',
+            array('controller'=>'user',
+                'action'=>'edit',
+                'id' => $user->id
+                ));?>">edit</a>
+        <a href="<?php echo $this->url('ec',
+            array('controller'=>'user',
+                'action'=>'delete',
+                'id' => $user->id
+                ));?>">delete</a>
+<?php endif; ?>
+    </td>
+</tr>
 </table>
-
+    
 <div class="jumbotron">
     <h1><?php echo sprintf($this->translate('Welcome to %sZend Framework 2%s'), '<span class="zf-green">', '</span>') ?></h1>
     <p><?php echo sprintf($this->translate('Congratulations! You have successfully installed the %sZF2 Skeleton Application%s. You are currently running Zend Framework version %s. This skeleton can serve as a simple starting point for you to begin building your application on ZF2.'), '<a href="https://github.com/zendframework/ZendSkeletonApplication" target="_blank">', '</a>', \Zend\Version\Version::VERSION) ?></p>
