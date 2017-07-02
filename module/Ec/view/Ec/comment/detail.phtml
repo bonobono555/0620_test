@@ -73,7 +73,11 @@ echo $this->form()->closeTag();
 <?php endforeach; ?>
 </table>
 
-
+<!--コメント投稿一覧画面-->
+<a href="<?php echo $this->url('ec',
+            array('controller'=>'comment',
+                'action'=>'index'
+                ));?>">COMMENT ALL</a>
 
 
 

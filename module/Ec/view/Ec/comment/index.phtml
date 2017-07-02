@@ -42,7 +42,12 @@ $this->headTitle($title);
 <?php endforeach; ?>
 </table>
 
-
+</br>
+<!--コメント投稿一覧画面-->
+<a href="<?php echo $this->url('ec',
+            array('controller'=>'user',
+                'action'=>'index'
+                ));?>">USER ALL</a>
 
 <div class="jumbotron">
     <h1><?php echo sprintf($this->translate('Welcome to %sZend Framework 2%s'), '<span class="zf-green">', '</span>') ?></h1>

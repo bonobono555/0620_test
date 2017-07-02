@@ -18,7 +18,7 @@ $this->headTitle($title);
     }
 ?>
 
-
+<!--ユーザ新規登録-->
 <p>
     <a href ="<?php echo $this->url('ec',
                     array('controller' => 'user',
@@ -26,6 +26,15 @@ $this->headTitle($title);
                     )); ?>"> new USER! </a>
 </p>
 
+<!--コメント投稿一覧-->
+<p>
+    <a href ="<?php echo $this->url('ec',
+                    array('controller' => 'comment',
+                        'action' => 'index',
+                    )); ?>"> Comment All</a>
+</p>
+
+<!--ユーザ一覧-->
 <table class="table">
     <tr>
         <th>id</th>
@@ -58,7 +67,13 @@ $this->headTitle($title);
 </table>
 
 <!--ログアウト-->
-<h3><a href="http://localhost:8888/0620_test/public/ec/index/logout" >logout</a></h3>
+<p>
+    <a href ="<?php echo $this->url('ec',
+                    array('controller' => 'index',
+                        'action' => 'logout',
+                    )); ?>">logout </a>
+</p>
+
 
 <div class="jumbotron">
     <h1><?php echo sprintf($this->translate('Welcome to %sZend Framework 2%s'), '<span class="zf-green">', '</span>') ?></h1>
