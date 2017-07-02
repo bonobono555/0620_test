@@ -17,7 +17,10 @@ use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
 use Ec\Model\UserTable;
 use Ec\Model\User; // UserTable
+use Ec\Model\CommentTable; // CommentTable
+use Ec\Model\Comment; // CommentTable
 use Ec\Model\PeopleTable; // PeopleTable
+
 // -----------------------
 use Zend\Db\Adapter\Adapter;    // ←追加
 use Zend\Db\TableGateway\Feature\GlobalAdapterFeature; // ←追加
@@ -74,6 +77,13 @@ class Module
                     $table = new UserTable($tableGateway);
                     return $table;
                 },
+                // CommentTable追加 インスタンス作成している
+                'Ec\Model\CommentTable' => function($serviceManager) {
+                    $dbAdapter = $serviceManager->get('Zend\Db\Adapter\Adapter');
+                    $table = new PeopleTable($dbAdapter);
+                    return $table;
+                },
+
                 // PeopleTable追加 インスタンス作成している
                 'Ec\Model\PeopleTable' => function($serviceManager) {
                     $dbAdapter = $serviceManager->get('Zend\Db\Adapter\Adapter');
