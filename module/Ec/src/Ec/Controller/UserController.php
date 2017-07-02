@@ -47,10 +47,11 @@ class UserController extends AbstractActionController
             // 初めのメッセージを取得
            $message = $message_array[0];
         }
+        
         $values = array(
             'users' => $this->getUserTable()->fetchAll(),
             'message' => $message,
-            'login_user' => $login_user,
+            'login_user' => $login_user,         
         );
         
         $view = new ViewModel( $values );
@@ -59,16 +60,6 @@ class UserController extends AbstractActionController
         
     }
     
-    // ServiceManagerで生成されたインスタンスを取得
-    public function getUserTable()
-    {
-        if (!$this->userTable){
-            $sm = $this->getServiceLocator();
-            $this->userTable = $sm->get('Ec/Model/UserTable');
-        }
-        return $this->userTable;
-    }
-
     // ユーザ情報詳細画面
     public function detailAction()
     {
@@ -81,10 +72,21 @@ class UserController extends AbstractActionController
         }
         $user = $this->getUserTable()->getUser($id);
         
-        $value = array(
-            'user' => $user,
+        //  ログインユーザ情報を取得する
+        $auth = new Auth();
+        $login_user = $auth->getLoginUser();
+
+        //  本人の情報か判定
+        $isSelf = false;
+        if( $login_user->id == $id ){
+            $isSelf = true;
+        }
+
+        $values = array(
+            'user'   => $user,
+            'isSelf' => $isSelf,
         );
-        $view = new ViewModel($value);
+        $view = new ViewModel($values);
         
         return $view;
         
@@ -159,14 +161,32 @@ class UserController extends AbstractActionController
     //ユーザ情報編集画面
     public function editAction()
     {
-        $id = (int) $this->params()->fromRoute('id', 0);
+        // ログインユーザ情報を取得する
+        $auth = new Auth();
+        $login_user = $auth->getLoginUser();
+
+        // ログインしていなければログイン画面へ遷移させる
+        if( ! $login_user->id ){
+
+            // フラッシュマネージャへ受け渡すメッセージを追加する
+            $this->flashMessenger()->addMessage( "Not Edit" );
+
+            return $this->redirect()->toRoute('ec', array(
+                'controller' => 'index',
+                'action'     => 'login',
+            ));
+        }
+        $user = $this->getUserTable()->getUser($login_user->id);
+
+        // idが設定されていなければユーザ一覧画面にリダイレクト
+        $id = $login_user->id;
         if (!$id){
             return $this->redirect()->toRoute('ec', array(
                 'controller' => 'user',
                 'action' => 'index'
             ));
         }
-        $user = $this->getUserTable()->getUser($id);
+//        $user = $this->getUserTable()->getUser($id);
         $form = new UserForm;
         $form->bind($user);
         $form->get('submit')->setAttribute('value', 'edit');
@@ -204,13 +224,32 @@ class UserController extends AbstractActionController
     // ユーザ情報削除画面
     public function deleteAction()
     {
-        $id = (int) $this->params()->fromRoute('id', 0);
-        if (!$id){
+        // ログインユーザのみ削除できる
+        //  ログインユーザ情報を取得する
+        $auth = new Auth();
+        $login_user = $auth->getLoginUser();
+
+        //  ログインしていなければログイン画面へ遷移させる
+        if( ! $login_user->id ){
+
+            // フラッシュマネージャへ受け渡すメッセージを追加する
+            $this->flashMessenger()->addMessage( "Not Delete" );
+
             return $this->redirect()->toRoute('ec', array(
-                'controller' => 'user',
-                'action' => 'index'
-            ));
-        }
+                'controller' => 'index',
+                'action'     => 'login',
+            ));           
+        }         
+        $user = $this->getUserTable()->getUser($login_user->id);
+        
+        // ログインidを取得
+        $id = $login_user->id;
+            if (!$id){
+                return $this->redirect()->toRoute('ec', array(
+                    'controller' => 'user',
+                    'action' => 'index'
+                ));
+            } 
         
         $request = $this->getRequest();
         if ($request->isPost()){
@@ -226,7 +265,7 @@ class UserController extends AbstractActionController
                 'action' => 'index'
             ));
             // 一覧画面で以下のメッセージを表示する
-            $this->flashMessenger()->addMessage( $user->name . "さんの情報を編集しました。" );
+            $this->flashMessenger()->addMessage( $user->name . " is delete" );
             
         }
         
@@ -239,6 +278,47 @@ class UserController extends AbstractActionController
         return $view;
         
         
+    }
+    
+    /*
+     * ログイン後、マイページ（詳細画面）に遷移
+     */
+    public function mypageAction()
+    {
+        //  ログインユーザ情報を取得する
+        $auth = new Auth();
+        $login_user = $auth->getLoginUser();
+
+        //  ログインしていなければログイン画面へ遷移させる
+        if( ! $login_user->id ){
+
+            // フラッシュマネージャへ受け渡すメッセージを追加する
+            $this->flashMessenger()->addMessage( "plese login" );
+
+            return $this->redirect()->toRoute('ec', array(
+                'controller' => 'index',
+                'action'     => 'login',
+            ));
+        }
+
+        //  マイページとして、ID付で詳細画面へリダイレクトさせる
+        return $this->redirect()->toRoute('ec', array(
+            'controller' => 'user',
+            'action'     => 'detail',
+            'id'         => $login_user->id,
+        ));
+    }
+
+    
+    
+    // ServiceManagerで生成されたインスタンスを取得
+    public function getUserTable()
+    {
+        if (!$this->userTable){
+            $sm = $this->getServiceLocator();
+            $this->userTable = $sm->get('Ec/Model/UserTable');
+        }
+        return $this->userTable;
     }
     
     // 翻訳ファイルの使用
