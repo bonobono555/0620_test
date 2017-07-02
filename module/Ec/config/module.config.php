@@ -120,7 +120,7 @@ return array(
             'Ec\Controller\User' => 'Ec\Controller\UserController', // userコントローラー
             'Ec\Controller\Form' => 'Ec\Controller\FormController', // Formコントローラー フォーム登録
             'Ec\Controller\Auth' => 'Ec\Controller\AuthController', // Authコントローラー ログイン機能
-            'Ec\Controller\Comment' => 'Ec\Controller\CommentController', // Commentコントローラー ログイン機能
+            'Ec\Controller\Comment' => 'Ec\Controller\CommentController', // Commentコントローラー コメント機能
             ),
     ),
     // viewフォルダを登録する
