@@ -7,6 +7,8 @@ use Zend\View\Model\ViewModel;
 use Ec\Model\Comment;
 use Ec\Form\CommentForm;
 use Ec\Model\Auth;
+use Ec\Model\User;
+use Ec\Form\UserForm;
 
 /**
  * 掲示板管理コントローラ
@@ -38,7 +40,7 @@ class CommentController extends AbstractActionController
            $message = $message_array[0];
         }
 
-        $values = array(
+        $values = array(    
             'comments' => $this->getCommentTable()->fetchAllWithUser( array( 'parent_id' => 0 ) ),
             'message' => $message,
         );
@@ -81,16 +83,19 @@ class CommentController extends AbstractActionController
 
             $comment = new Comment();
 
+            // コメントモデル用のフィルタをフォームのフィルタとして設定
             $form->setInputFilter($comment->getInputFilter());
+            // post投稿された値をsetData()にてフォーム要素に設定            
             $form->setData($request->getPost());
 
             if ($form->isValid()) {
+                // コメントモデルの値を初期化
                 $comment->exchangeArray($form->getData());
 
                 //  タイトルの投稿が無い場合は本文を引用する
                 if( strlen( $comment->title ) <= 0 ){
                     $comment->title = mb_strimwidth( $comment->comment, 0, 250, '...', 'UTF-8' );
-                }
+                }                
                 // CommentテーブルへDB登録
                 $this->getCommentTable()->saveComment($comment);
 
@@ -124,6 +129,94 @@ class CommentController extends AbstractActionController
         
     }
 
+    // コメント詳細画面
+    public function detailAction()
+    {
+        $id = (int) $this->params()->fromRoute('id', 0);
+        if (!$id) {
+            return $this->redirect()->toRoute('ec', array(
+                'controller' => 'comment',
+                'action'     => 'index'
+            ));
+        }
+
+        $comment = $this->getCommentTable()->getComment($id);
+        $comment_user = $this->getUserTable()->getUser($comment->user_id);
+        
+        // フラッシュマネージャーを取得
+        $flashMessenger = $this->flashMessenger();
+ 
+        // 現在の要求中に追加されたものがあるのかチェック
+        $message = '';
+        if( $flashMessenger->hasMessages() ){
+ 
+            // メッセージの取得（配列）
+            $message_array = $flashMessenger->getMessages();
+
+            // 初めのメッセージを取得
+           $message = $message_array[0];
+        }
+
+        //  ログインユーザ情報を取得する
+        $auth = new Auth();
+        $login_user = $auth->getLoginUser();
+
+        $form = new CommentForm();
+        $form->get('submit')->setValue('Comment add');
+        $form->get('parent_id')->setValue($id);
+        $form->get('user_id')->setValue($login_user->id);
+        
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+
+            //  ログインしていなければログイン画面へ遷移させる
+            if( ! $login_user->id ){
+
+                // フラッシュマネージャへ受け渡すメッセージを追加する
+                $this->flashMessenger()->addMessage( "login hissu!" );
+
+                return $this->redirect()->toRoute('ec', array(
+                    'controller' => 'index',
+                    'action' => 'login',
+                ));
+            }
+
+            //  トランスレーターに翻訳ファイルを読み込ませる
+//            $this->getTranslator()->addTranslationFile('phparray', 'C:\xampp\Library\ZendFramework-2.2.2\resources\languages\ja\Zend_Validate.php');
+
+            $comment_res = new Comment();
+
+            $form->setInputFilter($comment_res->getInputFilter());
+            $form->setData($request->getPost());
+
+            if ($form->isValid()) {
+                $comment_res->exchangeArray($form->getData());
+                $this->getCommentTable()->saveComment($comment_res);
+
+                // フラッシュマネージャへ受け渡すメッセージを追加する
+                $this->flashMessenger()->addMessage( "Comment ADD" );
+
+                return $this->redirect()->toRoute('ec', array(
+                    'controller' => 'comment',
+                    'action'     => 'detail',
+                    'id'         => $id,
+                ));
+            }
+        }
+        
+        $values = array(
+            'comment'        => $comment,
+            'comment_user'   => $comment_user,
+            'comment_res'    => $this->getCommentTable()->fetchAllWithUser( array( 'parent_id' => $id ) ),
+            'form'    => $form,
+            'message' => $message,
+        );
+        $view = new ViewModel( $values );
+
+        return $view;
+        
+    }
+    
     /*  
      * トランスレーターを取得
      */

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Ec\Model;
 
 use Zend\Db\TableGateway\TableGateway;
@@ -17,7 +16,7 @@ class CommentTable
     public function __construct(TableGateway $tableGateway)
     {
         $this->tableGateway = $tableGateway;
-        
+
     }
     
     // 全てのレコードを取得
