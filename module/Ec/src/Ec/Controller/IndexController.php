@@ -115,7 +115,7 @@ class IndexController extends AbstractActionController
 
                     return $this->redirect()->toRoute('ec', array(
                         'controller' => 'user',
-                        'action' => 'index'
+                        'action' => 'mypage'
                     ));
                 }
                 else{
