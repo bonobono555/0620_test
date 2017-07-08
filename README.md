@@ -1,117 +1,150 @@
-����ǽ
+■掲示板
 
-    ���Ǽ���
-        ����
-            ���������桼�����桼���������̡������Ȱ������̤򸫤뤳�Ȥ���ǽ���桼��������Ͽ��ǽ
-            ��������桼������ʬ�ξ�����Խ���������Ǽ��Ĥ˥����Ȥ���Ʋ�ǽ��
+    ■概要
+        
+        非ログインユーザ：ユーザ一覧画面、コメント一覧画面を見ることが可能。ユーザ新規登録機能
+        ログインユーザ：自分の情報を編集・削除、掲示板にコメントを投稿可能。
 
+    ■使用方法
+
+        1.ドキュメントルート上にこのリポジトリをクローンする
+        git clone https://github.com/bonobono555/0620_test.git;
+
+        2.gitをクローンしたディレクトリでcomposerをインストールする
+        php composer.phar install
+
+        3.[ドキュメントルート]0620_test/config/autoload/local.phpを新規作成
+            --start---------------
+            <?php
+            return array(
+                'db' => array(
+                    'dsn'            => 'mysql:dbname=ec;host=localhost',        
+                    'username' => 'root', //ユーザー
+                    'password' => 'root', //パスワード
+                ),
+                'base_url' =>  'http://localhost:8888/0620_test/public',
+            );
+            --end---------------
+        4.データベースを作成
+            下記の「使用DB」を参考にインサートする。
+
+    ■機能
         Index
 
-            [�ۥ���̾]/ec/index/login
-            ��������ǽ
-            [�ۥ���̾]/ec/user/index�˥�������Ǥ���
+            [ホスト名]/ec/index/login
+            ログイン機能
+            emailとpasswordを入力して [ホスト名]/ec/user/index にログインできる
 
-            [�ۥ���̾]/ec/index/logout
-            ���������ȵ�ǽ
-            [�ۥ���̾]/ec/user/index������������ȤǤ���
+            [ホスト名]/ec/index/logout
+            ログアウト機能
+            [ホスト名]/ec/user/indexからログアウトできる
 
         User
 
-            [�ۥ���̾]/ec/user/add
-            �桼��������Ͽ����
-            ��Ͽ���Х�ǡ������»�
+            [ホスト名]/ec/user/add
+            ユーザ新規登録画面
+            登録時バリデーションを実施
+            emailとpasswordは必須項目
 
-            [�ۥ���̾]/ec/user/add
-            �桼���Խ�����
+            [ホスト名]/ec/user/edit
+            ユーザ情報変更画面
+            ログインユーザのみ自分の情報を編集きる
 
-            [�ۥ���̾]/ec/user/add
-            �桼���������
+            [ホスト名]/ec/user/delete
+            ユーザ削除画面
+            ログインユーザのみ自分の情報を削除できる
 
-            [�ۥ���̾]/ec/user/detail
-            �桼���ܺٲ���
+            [ホスト名]/ec/user/detail
+            ユーザ詳細画面
 
-            [�ۥ���̾]/ec/user/index
-            �桼����������
+            [ホスト名]/ec/user/index
+            ユーザ一覧画面
 
-            ����
-            index���̤���桼������Ͽ���Խ����ܺ�ɽ����������Ԥ��롣
+            説明
+            ec/user/index画面からユーザの登録・編集・詳細表示・削除が行える。
 
         Comment
 
-            [�ۥ���̾]/ec/comment/index
-            �����Ȱ�������
+            [ホスト名]/ec/comment/index
+            コメント一覧画面
+            ログインユーザ関係なくコメントの一覧を見ることができる
 
-            [�ۥ���̾]/ec/comment/add
-            �����ȿ�����Ʋ���
+            [ホスト名]/ec/comment/add
+            コメント新規投稿画面
+            ログインユーザのみ投稿可能
 
-            [�ۥ���̾]/ec/comment/detail
-            �����Ⱦܺٲ���
+            [ホスト名]/ec/comment/detail
+            コメント詳細画面
+            コメントのレスなどを見ることができる
 
-            ����
-            �������󤷤��桼�����ǥ����Ȥ���Ʋ�ǽ�� 
-            ��ƥ����Ȥ˥쥹��Ĥ��뤳�Ȥ��Ǥ���
+            説明
+            ログインしたユーザーでコメントの投稿可能で 
+            投稿コメントにレスをつけることができる
 
 
-    ������
+    ■練習
         Auth
 
-            [�ۥ���̾]/ec/auth/login
-            ��������ǽ
+            [ホスト名]/ec/auth/login
+            ログイン機能
 
-            [�ۥ���̾]/ec/auth/signup
-            �桼����Ͽ����
+            [ホスト名]/ec/auth/signup
+            ユーザ登録画面
 
 
-            ����
-            [�ۥ���̾]/ec/auth/signup �ˤ���Ͽ�����桼����
-            [�ۥ���̾]/ec/auth/login �˥�������Ǥ���
+            説明
+            [ホスト名]/ec/auth/signup にて登録したユーザで
+            [ホスト名]/ec/auth/login にログインできる
 
         Form
 
-            [�ۥ���̾]/ec/form/index
-            �ե�������Ͽ����
+            [ホスト名]/ec/form/index
+            フォーム登録画面
 
-            ����
-            [�ۥ���̾]/ec/form/index �ǥե��������������
-            ���β��̤ǥե���������Ƥ�ɽ������롣
+            説明
+            [ホスト名]/ec/form/index でフォーム送信すると
+            次の画面でフォームの内容が表示される。
 
         
-������DB
+■使用DB
 
-    ���ǡ����١���
+    ■データベース
 
-        Ec
+        CREATE DATABASE ec;
 
-    ���ơ��֥�
+    ■テーブル
 
-        ��User
+        ・User
 
-            CREATE TABLE `User` (
-          `id` int(11) NOT NULL COMMENT 'ID',
-          `name` varchar(32) CHARACTER SET utf8 DEFAULT NULL COMMENT '̾��',
-          `email` varchar(64) CHARACTER SET utf8 DEFAULT NULL COMMENT '�᡼�륢�ɥ쥹',
-          `password` varchar(16) CHARACTER SET utf8 DEFAULT NULL COMMENT '��������ѥ����',
-          `comment` text CHARACTER SET utf8 COMMENT '���ʾҲ�ʸ',
-          `url` varchar(64) CHARACTER SET utf8 DEFAULT NULL COMMENT '�����ȥ��ɥ쥹'
+            CREATE TABLE `user` (
+          `id` int(11) AUTO_INCREMENT NOT NULL PRIMARY KEY COMMENT 'ID',
+          `name` varchar(32) CHARACTER SET utf8 DEFAULT NULL COMMENT '名前',
+          `email` varchar(64) CHARACTER SET utf8 DEFAULT NULL COMMENT 'メールアドレス',
+          `password` varchar(16) CHARACTER SET utf8 DEFAULT NULL COMMENT 'ログインパスワード',
+          `comment` text CHARACTER SET utf8 COMMENT '自己紹介文',
+          `url` varchar(64) CHARACTER SET utf8 DEFAULT NULL COMMENT 'サイトアドレス'
         ) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-        ��Comment
+        ・Comment
         
-            CREATE TABLE `Comment` (
-              `id` int(11) NOT NULL,
+            CREATE TABLE `comment` (
+              `id` int(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
               `title` varchar(255) CHARACTER SET utf8 NOT NULL,
               `comment` text CHARACTER SET utf8 NOT NULL,
               `parent_id` int(11) NOT NULL,
               `user_id` int(11) NOT NULL
             ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-        ��People
+        ・People
 
-            CREATE TABLE `People` (
-            `id` int(100) unsigned NOT NULL,
+            CREATE TABLE `people` (
+            `id` int(100) unsigned  AUTO_INCREMENT NOT NULL PRIMARY KEY,
             `email` varchar(300) CHARACTER SET utf8 NOT NULL,
             `password` varchar(300) CHARACTER SET utf8 NOT NULL
           ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+          ※phpmyadminからテーブルをエクスポートする際、
+           auto_increment,primary_keyが付与されないSQL文が出力されるので注意
 
 
 ZendSkeletonApplication
