@@ -24,7 +24,7 @@ return array(
             // new controllers and actions without needing to create a new
             // module. Simply drop new controllers in, and you can access them
             // using the path /application/:controller/:action
-            // /ec¤Î¥ë¡¼¥Æ¥£¥ó¥°ÀßÄê
+            // /ecã®ãƒ«ãƒ¼ãƒ†ã‚£ãƒ³ã‚°è¨­å®š
             'ec' => array(
                 'type' => 'Segment',
                 'options' => array(
@@ -36,9 +36,9 @@ return array(
                     ),
                 ),
                 'may_terminate' => true,
-                // ¢·/ec°Ê²¼¤Î¥ë¡¼¥Æ¥£¥ó¥°ÀßÄê
+                // ï½ž/ecä»¥ä¸‹ã®ãƒ«ãƒ¼ãƒ†ã‚£ãƒ³ã‚°è¨­å®š
                 'child_routes' => array(
-                    // /ec°Ê²¼¤Î¥Ç¥Õ¥©¥ë¥È¤Î¥ë¡¼¥Æ¥£¥ó¥°ÀßÄê
+                    // /ecä»¥ä¸‹ã®ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®ãƒ«ãƒ¼ãƒ†ã‚£ãƒ³ã‚°è¨­å®š
                     'default' => array(
                         'type' => 'Segment',
                         'options' => array(
@@ -51,22 +51,22 @@ return array(
                             ),
                         ),
                     ),
-                    // ¥í¥°¥¤¥óµ¡Ç½ signup¡¡¤Î¥ë¡¼¥Æ¥£¥ó¥°ÀßÄê¡¡¡Ê¼«Í³¤Ë¥ë¡¼¥Æ¥£¥ó¥°Ì¾¤òµ­½Ò¡Ë
+                    // ãƒ­ã‚°ã‚¤ãƒ³æ©Ÿèƒ½ signupã€€ã®ãƒ«ãƒ¼ãƒ†ã‚£ãƒ³ã‚°è¨­å®šã€€ï¼ˆè‡ªç”±ã«ãƒ«ãƒ¼ãƒ†ã‚£ãƒ³ã‚°åã‚’è¨˜è¿°ï¼‰
                     'signup' => array(
-                        // ¥ë¡¼¥Æ¥£¥ó¥°¥¿¥¤¥×¡Ê´°Á´°ìÃ×¤Ç»ØÄê¤¹¤ë¾ì¹ç¤Ïliteral¤Èµ­½Ò¡Ë
+                        // ãƒ«ãƒ¼ãƒ†ã‚£ãƒ³ã‚°ã‚¿ã‚¤ãƒ—ï¼ˆå®Œå…¨ä¸€è‡´ã§æŒ‡å®šã™ã‚‹å ´åˆã¯literalã¨è¨˜è¿°ï¼‰
                         'type' => 'literal',
                         'options' => array(
-                            // °ìÃ×¤¹¤ëURL
+                            // ä¸€è‡´ã™ã‚‹URL
                             'route' => 'signup',
                             'defaults' => array(
-                                // ControllerÌ¾
+                                // Controllerå
                                 'controller' => 'Ec\Controller\Auth',
-                                // ¥¢¥¯¥·¥ç¥óÌ¾
+                                // ã‚¢ã‚¯ã‚·ãƒ§ãƒ³å
                                 'action' => 'signup',
                             ),
                         ),
                     ),
-                    // ¥í¥°¥¤¥óµ¡Ç½ login¡¡¤Î¥ë¡¼¥Æ¥£¥ó¥°ÀßÄê
+                    // ãƒ­ã‚°ã‚¤ãƒ³æ©Ÿèƒ½ loginã€€ã®ãƒ«ãƒ¼ãƒ†ã‚£ãƒ³ã‚°è¨­å®š
                     'login' => array(
                         'type' => 'literal',
                         'options' => array(
@@ -81,7 +81,7 @@ return array(
             ),
         ),
     ),
-    //  /ec/list/index[/:page]¡¡¤Î¥ë¡¼¥Æ¥£¥ó¥°¥Ñ¥é¥á¡¼¥¿ÀßÄê
+    //  /ec/list/index[/:page]ã€€ã®ãƒ«ãƒ¼ãƒ†ã‚£ãƒ³ã‚°ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿è¨­å®š
     'hoge' => array(
         'type' => 'Segment',
         'options' => array(
@@ -92,7 +92,7 @@ return array(
             ),
         ),
     ),
-    // ¥í¥°¥¤¥óµ¡Ç½end
+    // ãƒ­ã‚°ã‚¤ãƒ³æ©Ÿèƒ½end
     'service_manager' => array(
         'abstract_factories' => array(
             'Zend\Cache\Service\StorageCacheAbstractServiceFactory',
@@ -112,18 +112,18 @@ return array(
             ),
         ),
     ),
-    // Controller¤òÍøÍÑ²ÄÇ½¤Ë¤¹¤ë Controlle¤òÄÉ²Ã¤¹¤ë¤¿¤Ó¤Ë¤³¤³¤ËÄÉ²Ã¤¹¤ë¡£
+    // Controllerã‚’åˆ©ç”¨å¯èƒ½ã«ã™ã‚‹ Controlleã‚’è¿½åŠ ã™ã‚‹ãŸã³ã«ã“ã“ã«è¿½åŠ ã™ã‚‹ã€‚
     'controllers' => array(
         'invokables' => array(
             'Ec\Controller\Index' => 'Ec\Controller\IndexController',
-            'Ec\Controller\List' => 'Ec\Controller\ListController', // Ec¤ÇºîÀ®¤·¤¿¥³¥ó¥È¥í¡¼¥é¡¼
-            'Ec\Controller\User' => 'Ec\Controller\UserController', // user¥³¥ó¥È¥í¡¼¥é¡¼
-            'Ec\Controller\Form' => 'Ec\Controller\FormController', // Form¥³¥ó¥È¥í¡¼¥é¡¼ ¥Õ¥©¡¼¥àÅÐÏ¿
-            'Ec\Controller\Auth' => 'Ec\Controller\AuthController', // Auth¥³¥ó¥È¥í¡¼¥é¡¼ ¥í¥°¥¤¥óµ¡Ç½
-            'Ec\Controller\Comment' => 'Ec\Controller\CommentController', // Comment¥³¥ó¥È¥í¡¼¥é¡¼ ¥³¥á¥ó¥Èµ¡Ç½
+            'Ec\Controller\List' => 'Ec\Controller\ListController', // Ecã§ä½œæˆã—ãŸã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼
+            'Ec\Controller\User' => 'Ec\Controller\UserController', // userã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼
+            'Ec\Controller\Form' => 'Ec\Controller\FormController', // Formã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ ãƒ•ã‚©ãƒ¼ãƒ ç™»éŒ²
+            'Ec\Controller\Auth' => 'Ec\Controller\AuthController', // Authã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ ãƒ­ã‚°ã‚¤ãƒ³æ©Ÿèƒ½
+            'Ec\Controller\Comment' => 'Ec\Controller\CommentController', // Commentã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ ã‚³ãƒ¡ãƒ³ãƒˆæ©Ÿèƒ½
             ),
     ),
-    // view¥Õ¥©¥ë¥À¤òÅÐÏ¿¤¹¤ë
+    // viewãƒ•ã‚©ãƒ«ãƒ€ã‚’ç™»éŒ²ã™ã‚‹
     'view_manager' => array(
         'display_not_found_reason' => true,
         'display_exceptions' => true,
@@ -132,7 +132,22 @@ return array(
         'exception_template' => 'error/index',
         'template_map' => array(
             'layout/layout' => __DIR__ . '/../view/layout/layout.phtml',
+            
             'ec/index/index' => __DIR__ . '/../view/Ec/index/index.phtml',
+            'ec/index/login' => __DIR__ . '/../view/Ec/index/login.phtml',
+            'ec/index/logout' => __DIR__ . '/../view/Ec/index/logout.phtml',
+            
+            'ec/user/index' => __DIR__ . '/../view/Ec/user/index.phtml',
+            'ec/user/add' => __DIR__ . '/../view/Ec/user/add.phtml',
+            'ec/user/detail' => __DIR__ . '/../view/Ec/user/detail.phtml',
+            'ec/user/edit' => __DIR__ . '/../view/Ec/user/edit.phtml',
+            'ec/user/delete' => __DIR__ . '/../view/Ec/user/delete.phtml',
+            
+            'ec/comment/index' => __DIR__ . '/../view/Ec/comment/index.phtml',
+            'ec/comment/add' => __DIR__ . '/../view/Ec/comment/add.phtml',
+            'ec/comment/detail' => __DIR__ . '/../view/Ec/comment/detail.phtml',            
+            
+            
             'error/404' => __DIR__ . '/../view/error/404.phtml',
             'error/index' => __DIR__ . '/../view/error/index.phtml',
         ),
