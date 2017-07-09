@@ -2,98 +2,98 @@
 
 namespace Ec\Model;
 
-// AUTH¥¢¥À¥×¥¿¥¯¥é¥¹¤òÆÉ¤ß¹þ¤à
+// AUTHã‚¢ãƒ€ãƒ—ã‚¿ã‚¯ãƒ©ã‚¹ã‚’èª­ã¿è¾¼ã‚€
 use Zend\Authentication\Adapter\DbTable as AuthAdapter;
-// AUTH¥µ¡¼¥Ó¥¹
+// AUTHã‚µãƒ¼ãƒ“ã‚¹
 use Zend\Authentication\AuthenticationService;
-// AUTH¥»¥Ã¥·¥ç¥ó¥¹¥È¥ì¡¼¥¸
+// AUTHã‚»ãƒƒã‚·ãƒ§ãƒ³ã‚¹ãƒˆãƒ¬ãƒ¼ã‚¸
 use Zend\Authentication\Storage\Session as SessionStorage;
-// ¥æ¡¼¥¶¥â¥Ç¥ë
+// ãƒ¦ãƒ¼ã‚¶ãƒ¢ãƒ‡ãƒ«
 use Ec\Model\User;
 
 /**
- * ¥í¥°¥¤¥óÇ§¾ÚÍÑ¥â¥Ç¥ë
+ * ãƒ­ã‚°ã‚¤ãƒ³èªè¨¼ç”¨ãƒ¢ãƒ‡ãƒ«
  *
  * @author onoeadusa
  */
 class Auth
 {
-    // Ç§¾Ú¥ª¥Ö¥¸¥§¥¯¥È
+    // èªè¨¼ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
     protected $auth;
 
-    // ¥³¥ó¥¹¥È¥é¥¯¥¿
+    // ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     public function __construct()
     {
-        // Ç§¾Ú¾ðÊó¤ò¼èÆÀ¤¹¤ë
+        // èªè¨¼æƒ…å ±ã‚’å–å¾—ã™ã‚‹
         $this->auth = new AuthenticationService( new SessionStorage( 'user_auth' ) );
     }
     
-    // ¥í¥°¥¤¥óÍÑ¥á¥½¥Ã¥É
+    // ãƒ­ã‚°ã‚¤ãƒ³ç”¨ãƒ¡ã‚½ãƒƒãƒ‰
     public function login( User $user, $dbAdapter )
     {
-        // Ç§¾Ú¥¢¥À¥×¥¿¡¼¤òºîÀ®
+        // èªè¨¼ã‚¢ãƒ€ãƒ—ã‚¿ãƒ¼ã‚’ä½œæˆ
         $authAdapter = new AuthAdapter( $dbAdapter );
 
-        // Ç§¾Ú¹àÌÜÆâÍÆ¤òÀßÄê
+        // èªè¨¼é …ç›®å†…å®¹ã‚’è¨­å®š
         $authAdapter
-            // ¸¡º÷¤¹¤ë¥Æ¡¼¥Ö¥ëÌ¾
+            // æ¤œç´¢ã™ã‚‹ãƒ†ãƒ¼ãƒ–ãƒ«å
             ->setTableName('user')
 
-            // Ç§¾ÚÂÐ¾Ý¥«¥é¥à
+            // èªè¨¼å¯¾è±¡ã‚«ãƒ©ãƒ 
             ->setIdentityColumn( 'email' )
 
-            // Ç§¾Ú¥Ñ¥¹¥ï¡¼¥É¥«¥é¥à
+            // èªè¨¼ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ã‚«ãƒ©ãƒ 
             ->setCredentialColumn( 'password' );
 
-        // ¥Õ¥©¡¼¥à¤«¤é¤ÎÆþÎÏÃÍ¤ò¥»¥Ã¥È¤¹¤ë
+        // ãƒ•ã‚©ãƒ¼ãƒ ã‹ã‚‰ã®å…¥åŠ›å€¤ã‚’ã‚»ãƒƒãƒˆã™ã‚‹
         $authAdapter
-            // Ç§¾ÚÂÐ¾ÝÃÍ
+            // èªè¨¼å¯¾è±¡å€¤
             ->setIdentity( $user->email )
 
-            // Ç§¾Ú¥Ñ¥¹¥ï¡¼¥É
+            // èªè¨¼ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰
             ->setCredential( $user->password );
 
-        // Ç§¾Ú¥¯¥¨¥ê¤ò¼Â¹Ô¤·¡¢Ç§¾Ú·ë²Ì¤ò¼èÆÀ
+        // èªè¨¼ã‚¯ã‚¨ãƒªã‚’å®Ÿè¡Œã—ã€èªè¨¼çµæžœã‚’å–å¾—
         $result = $this->auth->authenticate( $authAdapter );
 
-        // Ç§¾ÚÀ®¸ù(isValid()¤ÇÇ§¾Ú·ë²Ì¤Î¥Á¥§¥Ã¥¯¡Ë
+        // èªè¨¼æˆåŠŸ(isValid()ã§èªè¨¼çµæžœã®ãƒã‚§ãƒƒã‚¯ï¼‰
         if( $result->isValid() ){
 
-            // Ç§¾Ú¥¹¥È¥ì¡¼¥¸¤ò¼èÆÀ¤¹¤ë
+            // èªè¨¼ã‚¹ãƒˆãƒ¬ãƒ¼ã‚¸ã‚’å–å¾—ã™ã‚‹
             $storage = $this->auth->getStorage();
 
-            // ·ë²Ì¥ª¥Ö¥¸¥§¥¯¥È¤ò¥¹¥È¥ì¡¼¥¸¤Ë½ñ¤­¹þ¤à
+            // çµæžœã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ã‚¹ãƒˆãƒ¬ãƒ¼ã‚¸ã«æ›¸ãè¾¼ã‚€
             $storage->write( $authAdapter->getResultRowObject() );
 
             return true;
         }
-        // Ç§¾Ú¼ºÇÔ
+        // èªè¨¼å¤±æ•—
         else{
             return false;
         }
     }
     
     /*
-     * ¥í¥°¥¤¥ó¾õÂÖ³ÎÇ§
+     * ãƒ­ã‚°ã‚¤ãƒ³çŠ¶æ…‹ç¢ºèª
      */
     public function getLoginUser()
     {
         $user = new User();
 
-        // ¥í¥°¥¤¥ó³ÎÇ§
+        // ãƒ­ã‚°ã‚¤ãƒ³ç¢ºèª
         if( $this->auth->hasIdentity() ){
-            // ¥í¥°¥¤¥ó¾ðÊó¤ò¼èÆÀ¤¹¤ë
+            // ãƒ­ã‚°ã‚¤ãƒ³æƒ…å ±ã‚’å–å¾—ã™ã‚‹
             $user = $this->auth->getIdentity();
         }
         return $user;
     }
     
     /*
-     * ¥í¥°¥¢¥¦¥È
+     * ãƒ­ã‚°ã‚¢ã‚¦ãƒˆ
      */
     public function logout()
     {
-        // ¥¹¥È¥ì¡¼¥¸¤ÈÇ§¾Ú¾ðÊó¤òÇË´þ¤¹¤ë
+        // ã‚¹ãƒˆãƒ¬ãƒ¼ã‚¸ã¨èªè¨¼æƒ…å ±ã‚’ç ´æ£„ã™ã‚‹
         $this->auth->getStorage()->clear();
         $this->auth->clearIdentity();
     }

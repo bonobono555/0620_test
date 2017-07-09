@@ -7,7 +7,7 @@ use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 
-// 1¤Ä¤Î¥ª¥Ö¥¸¥§¥¯¥È¤¬£±¤Ä¤Î¥ì¥³¡¼¥ÉÆâÍÆ¤È°ìÃ×¤¹¤ë¥æ¡¼¥¶¡¼¾ğÊó¤òÊİ»ı¤¹¤ë¥â¥Ç¥ë¥¯¥é¥¹
+// 1ã¤ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒï¼‘ã¤ã®ãƒ¬ã‚³ãƒ¼ãƒ‰å†…å®¹ã¨ä¸€è‡´ã™ã‚‹ãƒ¦ãƒ¼ã‚¶ãƒ¼æƒ…å ±ã‚’ä¿æŒã™ã‚‹ãƒ¢ãƒ‡ãƒ«ã‚¯ãƒ©ã‚¹
 class User implements InputFilterAwareInterface
 {
     public $id;
@@ -19,12 +19,12 @@ class User implements InputFilterAwareInterface
     
     protected $inputFilter;
     
-    // ¥á¥ó¥ĞÊÑ¿ô¤ò½é´ü²½¤¹¤ë½èÍı
+    // ãƒ¡ãƒ³ãƒå¤‰æ•°ã‚’åˆæœŸåŒ–ã™ã‚‹å‡¦ç†
     public function exchangeArray($data)
     {
-        // °ú¿ô¤ËÇÛÎó¤òÁÛÄê¤·¡¢ÌÜÅª¤È¤¹¤ëÅº¤¨»ú¤ËÂĞ¤·¤ÆÃÍ¤¬¤¢¤ì¤Ğ¡¢ÃÍ¤ò¥á¥ó¥Ğ¤Ë³ÊÇ¼¡£
-        // ¤Ê¤±¤ì¤Ğ¥Ç¥Õ¥©¥ë¥ÈÃÍ¤ò¥á¥ó¥Ğ¤Ø³ÊÇ¼¤·¤Æ¤¤¤Ş¤¹¡£
-        // ¥Ç¥Õ¥©¥ë¥ÈÃÍ¤Ï¥Ç¡¼¥¿¥Ù¡¼¥¹¤ÎÍí¤à¤Î·¿¤ÈÂ·¤¨¤ë
+        // å¼•æ•°ã«é…åˆ—ã‚’æƒ³å®šã—ã€ç›®çš„ã¨ã™ã‚‹æ·»ãˆå­—ã«å¯¾ã—ã¦å€¤ãŒã‚ã‚Œã°ã€å€¤ã‚’ãƒ¡ãƒ³ãƒã«æ ¼ç´ã€‚
+        // ãªã‘ã‚Œã°ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤ã‚’ãƒ¡ãƒ³ãƒã¸æ ¼ç´ã—ã¦ã„ã¾ã™ã€‚
+        // ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤ã¯ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã®çµ¡ã‚€ã®å‹ã¨æƒãˆã‚‹
         $this->id = (isset($data['id'])) ? $data['id'] : 0;
         $this->name = (isset($data['name'])) ? $data['name'] : '';
         $this->email = (isset($data['email'])) ? $data['email'] : '';
@@ -34,13 +34,13 @@ class User implements InputFilterAwareInterface
 
     }
     
-    // implements¤¹¤ë¤³¤È¤ÇInputFilterAwareInterfaceÆâ¤Ë¤¢¤ësetInputFilter¤Î¼ÂÁõ¤¬µÁÌ³¤È¤Ê¤ë
+    // implementsã™ã‚‹ã“ã¨ã§InputFilterAwareInterfaceå†…ã«ã‚ã‚‹setInputFilterã®å®Ÿè£…ãŒç¾©å‹™ã¨ãªã‚‹
     public function setInputFilter(InputFilterInterface $inputFilter)
     {
         throw new \Exception("Not used");    
     }
 
-    // implements¤¹¤ë¤³¤È¤ÇInputFilterAwareInterfaceÆâ¤Ë¤¢¤ëgetInputFilter¤Î¼ÂÁõ¤¬µÁÌ³¤È¤Ê¤ë
+    // implementsã™ã‚‹ã“ã¨ã§InputFilterAwareInterfaceå†…ã«ã‚ã‚‹getInputFilterã®å®Ÿè£…ãŒç¾©å‹™ã¨ãªã‚‹
     public function getInputFilter()
     {
         if (!$this->inputFilter)

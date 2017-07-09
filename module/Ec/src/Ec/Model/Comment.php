@@ -8,7 +8,7 @@ use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 
 /**
- * ¥³¥á¥ó¥ÈÅê¹ÆÍÑ¥Õ¥£¥ë¥¿¡¼
+ * ã‚³ãƒ¡ãƒ³ãƒˆæŠ•ç¨¿ç”¨ãƒ•ã‚£ãƒ«ã‚¿ãƒ¼
  *
  * @author onoeadusa
  */
@@ -22,12 +22,12 @@ class Comment implements InputFilterAwareInterface
     
     protected $inputFilter;
     
-    // ¥á¥ó¥ĞÊÑ¿ô¤ò½é´ü²½¤¹¤ë½èÍı
+    // ãƒ¡ãƒ³ãƒå¤‰æ•°ã‚’åˆæœŸåŒ–ã™ã‚‹å‡¦ç†
     public function exchangeArray($data)
     {
-        // °ú¿ô¤ËÇÛÎó¤òÁÛÄê¤·¡¢ÌÜÅª¤È¤¹¤ëÅº¤¨»ú¤ËÂĞ¤·¤ÆÃÍ¤¬¤¢¤ì¤Ğ¡¢ÃÍ¤ò¥á¥ó¥Ğ¤Ë³ÊÇ¼¡£
-        // ¤Ê¤±¤ì¤Ğ¥Ç¥Õ¥©¥ë¥ÈÃÍ¤ò¥á¥ó¥Ğ¤Ø³ÊÇ¼¤·¤Æ¤¤¤Ş¤¹¡£
-        // ¥Ç¥Õ¥©¥ë¥ÈÃÍ¤Ï¥Ç¡¼¥¿¥Ù¡¼¥¹¤ÎÍí¤à¤Î·¿¤ÈÂ·¤¨¤ë
+        // å¼•æ•°ã«é…åˆ—ã‚’æƒ³å®šã—ã€ç›®çš„ã¨ã™ã‚‹æ·»ãˆå­—ã«å¯¾ã—ã¦å€¤ãŒã‚ã‚Œã°ã€å€¤ã‚’ãƒ¡ãƒ³ãƒã«æ ¼ç´ã€‚
+        // ãªã‘ã‚Œã°ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤ã‚’ãƒ¡ãƒ³ãƒã¸æ ¼ç´ã—ã¦ã„ã¾ã™ã€‚
+        // ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤ã¯ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã®çµ¡ã‚€ã®å‹ã¨æƒãˆã‚‹
         $this->id = (isset($data['id'])) ? $data['id'] : 0;
         $this->title = (isset($data['title'])) ? $data['title'] : '';
         $this->comment = (isset($data['comment'])) ? $data['comment'] : '';

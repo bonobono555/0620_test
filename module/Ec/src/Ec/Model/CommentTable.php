@@ -3,11 +3,11 @@
 namespace Ec\Model;
 
 use Zend\Db\TableGateway\TableGateway;
-// SQLÊ¸¤ò¼è¤ê°·¤¦¥¯¥é¥¹
+// SQLæ–‡ã‚’å–ã‚Šæ‰±ã†ã‚¯ãƒ©ã‚¹
 use Zend\Db\Sql\Sql;
 
 /*
- * CommentTable ¥Ç¡¼¥¿¥Ù¡¼¥¹ÀÜÂ³¥â¥Ç¥ë
+ * CommentTable ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹æ¥ç¶šãƒ¢ãƒ‡ãƒ«
  */
 class CommentTable
 {
@@ -19,14 +19,14 @@ class CommentTable
 
     }
     
-    // Á´¤Æ¤Î¥ì¥³¡¼¥É¤ò¼èÆÀ
+    // å…¨ã¦ã®ãƒ¬ã‚³ãƒ¼ãƒ‰ã‚’å–å¾—
     public function fetchAll()
     {
         $resultSet = $this->tableGateway->select();
         return $resultSet;
     }
     
-    // selectÊ¸
+    // selectæ–‡
     public function getComment($id)
     {
         $id = (int) $id;
@@ -38,13 +38,13 @@ class CommentTable
         return $row;
     }
     
-    /* ¥ì¥³¡¼¥É¿·µ¬ºîÀ®¡¦¹¹¿·
+    /* ãƒ¬ã‚³ãƒ¼ãƒ‰æ–°è¦ä½œæˆãƒ»æ›´æ–°
      * 
-     * @param array $comment ¥³¥á¥ó¥È¾ğÊó¥â¥Ç¥ë¥¯¥é¥¹
+     * @param array $comment ã‚³ãƒ¡ãƒ³ãƒˆæƒ…å ±ãƒ¢ãƒ‡ãƒ«ã‚¯ãƒ©ã‚¹
      */
     public function saveComment(Comment $comment)
     {
-        // °ú¿ô¤òÇÛÎó¤ËÃÖ¤­´¹¤¨
+        // å¼•æ•°ã‚’é…åˆ—ã«ç½®ãæ›ãˆ
         $data = array(
             'id' => $comment->id,
             'title' => $comment->title,
@@ -55,12 +55,12 @@ class CommentTable
             );
         $id = (int)$comment->id;
         
-        // ID¤¬¤Ê¤±¤ì¤ĞINSERT
+        // IDãŒãªã‘ã‚Œã°INSERT
         if ($id == 0) {
             $this->tableGateway->insert($data);
-        // ID¤¬¤¢¤ì¤ĞUPDATE    
+        // IDãŒã‚ã‚Œã°UPDATE    
         } else {
-            // ID¾ğÊó¤ò¤â¤È¤Ë¥ì¥³¡¼¥É¼èÆÀ
+            // IDæƒ…å ±ã‚’ã‚‚ã¨ã«ãƒ¬ã‚³ãƒ¼ãƒ‰å–å¾—
             if ( $this->getComment($id)){
                 $this->tableGateway->update($data, array('id' => $id));
             } else {
@@ -69,14 +69,14 @@ class CommentTable
         }
     }
     
-    // ¥ì¥³¡¼¥Éºï½ü
+    // ãƒ¬ã‚³ãƒ¼ãƒ‰å‰Šé™¤
     public function deleteComment($id)
     {
         $this->tableGateway->delete(array('id' => $id));
     }
     
     /*
-     * ¥æ¡¼¥¶¾ğÊó¤ò¶¦¤Ë¼èÆÀ¤¹¤ë
+     * ãƒ¦ãƒ¼ã‚¶æƒ…å ±ã‚’å…±ã«å–å¾—ã™ã‚‹
      */
     public function fetchAllWithUser( $where = null )
     {

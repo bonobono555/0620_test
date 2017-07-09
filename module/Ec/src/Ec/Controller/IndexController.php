@@ -22,22 +22,15 @@ class IndexController extends AbstractActionController
     protected $dbAdapter;
     
     /*
-     * ºÇ½é¤ËÉ½¼¨¤µ¤ì¤ë¥Ú¡¼¥¸
+     * æœ€åˆã«è¡¨ç¤ºã•ã‚Œã‚‹ãƒšãƒ¼ã‚¸
      */
     public function indexAction()
-    {
-        // ¥ê¥¯¥¨¥¹¥È¥Ñ¥é¥á¡¼¥¿
-        // GET
-//        $getValue = $this->params()->fromQuery('test_param');
-//        // POST
-//        $postValue = $this->params()->fromPost('test_param');
-//        var_dump($getValue);
-        
+    {        
         return new ViewModel();
     }
 
     /* 
-     *  ¥Ç¡¼¥¿¥Ù¡¼¥¹ÀÜÂ³¥¢¥À¥×¥¿¡¼¤ò¼èÆÀ
+     *  ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹æ¥ç¶šã‚¢ãƒ€ãƒ—ã‚¿ãƒ¼ã‚’å–å¾—
      */
     public function getDBAdapter()
     {
@@ -49,7 +42,7 @@ class IndexController extends AbstractActionController
     }
 
     /* 
-     *  ¥È¥é¥ó¥¹¥ì¡¼¥¿¡¼¤ò¼èÆÀ
+     *  ãƒˆãƒ©ãƒ³ã‚¹ãƒ¬ãƒ¼ã‚¿ãƒ¼ã‚’å–å¾—
      */
     public function getTranslator()
     {
@@ -61,7 +54,7 @@ class IndexController extends AbstractActionController
     }
 
     /* 
-     *  ¥æ¡¼¥¶¥Æ¡¼¥Ö¥ë¤ò¼èÆÀ
+     *  ãƒ¦ãƒ¼ã‚¶ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’å–å¾—
      */
     public function getUserTable()
     {
@@ -74,31 +67,31 @@ class IndexController extends AbstractActionController
     
     
     /*
-     * ¥í¥°¥¤¥ó¥¢¥¯¥·¥ç¥ó
+     * ãƒ­ã‚°ã‚¤ãƒ³ã‚¢ã‚¯ã‚·ãƒ§ãƒ³
      */
     public function loginAction()
     {
-       // ¥Õ¥é¥Ã¥·¥å¥Ş¥Í¡¼¥¸¥ã¡¼¤ò¼èÆÀ
+       // ãƒ•ãƒ©ãƒƒã‚·ãƒ¥ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã‚’å–å¾—
         $flashMessenger = $this->flashMessenger();
  
-        // ¸½ºß¤ÎÍ×µáÃæ¤ËÄÉ²Ã¤µ¤ì¤¿¤â¤Î¤¬¤¢¤ë¤Î¤«¥Á¥§¥Ã¥¯
+        // ç¾åœ¨ã®è¦æ±‚ä¸­ã«è¿½åŠ ã•ã‚ŒãŸã‚‚ã®ãŒã‚ã‚‹ã®ã‹ãƒã‚§ãƒƒã‚¯
         $message = '';
         if( $flashMessenger->hasMessages() ){
  
-            // ¥á¥Ã¥»¡¼¥¸¤Î¼èÆÀ¡ÊÇÛÎó¡Ë
+            // ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®å–å¾—ï¼ˆé…åˆ—ï¼‰
             $message_array = $flashMessenger->getMessages();
 
-            // ½é¤á¤Î¥á¥Ã¥»¡¼¥¸¤ò¼èÆÀ
+            // åˆã‚ã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’å–å¾—
            $message = $message_array[0];
         }
 
         $form = new UserForm();
-        $form->get('submit')->setValue('LOGIN');
+        $form->get('submit')->setValue('ãƒ­ã‚°ã‚¤ãƒ³');
 
         $request = $this->getRequest();
         if ($request->isPost()) {
 
-            // ËİÌõ¥Õ¥¡¥¤¥ë¤Ï»È¤ï¤Ê¤¤
+            // ç¿»è¨³ãƒ•ã‚¡ã‚¤ãƒ«ã¯ä½¿ã‚ãªã„
             // $this->getTranslator()->addTranslationFile('phparray', 'C:\xampp\Library\ZendFramework-2.2.2\resources\languages\ja\Zend_Validate.php');
 
             $user = new User();
@@ -111,7 +104,7 @@ class IndexController extends AbstractActionController
 
                 $auth = new Auth();
                 if( $auth->login( $user, $this->getDBAdapter() ) ){
-                    $this->flashMessenger()->addMessage( 'LOGIN complete!' );
+                    $this->flashMessenger()->addMessage( 'ãƒ­ã‚°ã‚¤ãƒ³ã§ãã¾ã—ãŸ' );
 
                     return $this->redirect()->toRoute('ec', array(
                         'controller' => 'user',
@@ -119,7 +112,7 @@ class IndexController extends AbstractActionController
                     ));
                 }
                 else{
-                    $message = 'LOGIN false';
+                    $message = 'ãƒ­ã‚°ã‚¤ãƒ³ã§ãã¾ã›ã‚“ã§ã—ãŸ';
                 }
             }
         }
@@ -133,14 +126,14 @@ class IndexController extends AbstractActionController
     }
 
     /*
-     * ¥í¥°¥¢¥¦¥È
+     * ãƒ­ã‚°ã‚¢ã‚¦ãƒˆ
      */
     public function logoutAction()
     {
         $auth = new Auth();
         $auth->logout();
 
-        $this->flashMessenger()->addMessage( 'logout complete' );
+        $this->flashMessenger()->addMessage( 'ãƒ­ã‚°ã‚¢ã‚¦ãƒˆãŒå®Œäº†ã—ã¾ã—ãŸ' );
 
         return $this->redirect()->toRoute('ec', array(
             'controller' => 'index',

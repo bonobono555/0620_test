@@ -20,31 +20,31 @@ use Ec\Model\Auth;
  */
 class UserController extends AbstractActionController
 {
-    // ¥á¥ó¥ÐÊÑ¿ô
+    // ãƒ¡ãƒ³ãƒå¤‰æ•°
     protected $userTable;
     
-    // ËÝÌõ¥Ç¡¼¥¿
+    // ç¿»è¨³ãƒ‡ãƒ¼ã‚¿
     protected $translator;
 
 
-    // ¥æ¡¼¥¶¾ðÊó°ìÍ÷²èÌÌ
+    // ãƒ¦ãƒ¼ã‚¶æƒ…å ±ä¸€è¦§ç”»é¢
     public function indexAction()
     {
         $auth = new Auth();
-        // ¥í¥°¥¤¥ó¾ðÊóÊÝ»ý
+        // ãƒ­ã‚°ã‚¤ãƒ³æƒ…å ±ä¿æŒ
         $login_user = $auth->getLoginUser();
          
-        // ¥Õ¥é¥Ã¥·¥å¥Þ¥Í¡¼¥¸¥ã¡¼¥×¥é¥°¥¤¥ó¤Î¥Ï¥ó¥É¥ë¤ò¼èÆÀ
+        // ãƒ•ãƒ©ãƒƒã‚·ãƒ¥ãƒžãƒãƒ¼ã‚¸ãƒ£ãƒ¼ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ã®ãƒãƒ³ãƒ‰ãƒ«ã‚’å–å¾—
         $flashMessenger = $this->flashMessenger();
  
-        // ¸½ºß¤ÎÍ×µáÃæ¤ËÄÉ²Ã¤µ¤ì¤¿¤â¤Î¤¬¤¢¤ë¤Î¤«¥Á¥§¥Ã¥¯
+        // ç¾åœ¨ã®è¦æ±‚ä¸­ã«è¿½åŠ ã•ã‚ŒãŸã‚‚ã®ãŒã‚ã‚‹ã®ã‹ãƒã‚§ãƒƒã‚¯
         $message = '';
         if( $flashMessenger->hasMessages() ){
  
-            // ¥á¥Ã¥»¡¼¥¸¤Î¼èÆÀ¡ÊÇÛÎó¡Ë
+            // ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®å–å¾—ï¼ˆé…åˆ—ï¼‰
             $message_array = $flashMessenger->getMessages();
 
-            // ½é¤á¤Î¥á¥Ã¥»¡¼¥¸¤ò¼èÆÀ
+            // åˆã‚ã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’å–å¾—
            $message = $message_array[0];
         }
         
@@ -60,7 +60,7 @@ class UserController extends AbstractActionController
         
     }
     
-    // ¥æ¡¼¥¶¾ðÊó¾ÜºÙ²èÌÌ
+    // ãƒ¦ãƒ¼ã‚¶æƒ…å ±è©³ç´°ç”»é¢
     public function detailAction()
     {
         $id = (int) $this->params()->fromRoute('id', 0);
@@ -72,11 +72,11 @@ class UserController extends AbstractActionController
         }
         $user = $this->getUserTable()->getUser($id);
         
-        //  ¥í¥°¥¤¥ó¥æ¡¼¥¶¾ðÊó¤ò¼èÆÀ¤¹¤ë
+        //  ãƒ­ã‚°ã‚¤ãƒ³ãƒ¦ãƒ¼ã‚¶æƒ…å ±ã‚’å–å¾—ã™ã‚‹
         $auth = new Auth();
         $login_user = $auth->getLoginUser();
 
-        //  ËÜ¿Í¤Î¾ðÊó¤«È½Äê
+        //  æœ¬äººã®æƒ…å ±ã‹åˆ¤å®š
         $isSelf = false;
         if( $login_user->id == $id ){
             $isSelf = true;
@@ -92,41 +92,30 @@ class UserController extends AbstractActionController
         
     }    
     
-    // ¥æ¡¼¥¶¾ðÊóÄÉ²Ã²èÌÌ
+    // ãƒ¦ãƒ¼ã‚¶æƒ…å ±è¿½åŠ ç”»é¢
     public function addAction() 
-    {
-        // ¥Á¥ã¥×¥¿¡¼03
-//        $user = new User();
-//        $user->name = "testname";
-//        $user->email = "testemail";
-//        $this->getUserTable()->saveUser($user);
-//
-//        $values = array(
-//            'key1' => 'value1',
-//            'key2' => 'value2',
-//        );        
-
-        // ¥Õ¥©¡¼¥à¥ª¥Ö¥¸¥§¥¯¥È¤Î¥¤¥ó¥¹¥¿¥ó¥¹¤òºîÀ®
+    {  
+        // ãƒ•ã‚©ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ä½œæˆ
         $form = new UserForm();
                 
-        // 04¤Î¥·¥¹¥Æ¥àºîÀ®
-        $form->get('submit')->setValue('tourokuGO!');
+        // 04ã®ã‚·ã‚¹ãƒ†ãƒ ä½œæˆ
+        $form->get('submit')->setValue('ç™»éŒ²');
         
         $request = $this->getRequest();
         if ($request->isPost())
         {
             $user = new User();
-            // ¥æ¡¼¥¶¥â¥Ç¥ëÍÑ¤Î¥Õ¥£¥ë¥¿¤ò¥Õ¥©¡¼¥à¤Î¥Õ¥£¥ë¥¿¤È¤·¤ÆÀßÄê
+            // ãƒ¦ãƒ¼ã‚¶ãƒ¢ãƒ‡ãƒ«ç”¨ã®ãƒ•ã‚£ãƒ«ã‚¿ã‚’ãƒ•ã‚©ãƒ¼ãƒ ã®ãƒ•ã‚£ãƒ«ã‚¿ã¨ã—ã¦è¨­å®š
             $form->setInputFilter($user->getInputFilter());
-            // postÅê¹Æ¤µ¤ì¤¿ÃÍ¤òsetData()¤Ë¤Æ¥Õ¥©¡¼¥àÍ×ÁÇ¤ËÀßÄê
+            // postæŠ•ç¨¿ã•ã‚ŒãŸå€¤ã‚’setData()ã«ã¦ãƒ•ã‚©ãƒ¼ãƒ è¦ç´ ã«è¨­å®š
             $form->setData($request->getPost());              
             
-            // ¥Õ¥©¡¼¥à¤ËÅÐÏ¿¤·¤¿¥Õ¥£¥ë¥¿¤È¡¢¥Õ¥©¡¼¥à¤¬ÊÝ»ý¤¹¤ëÃÍ¤Î¸¡¾Ú¤òisValid()¤Ç¹Ô¤¦
+            // ãƒ•ã‚©ãƒ¼ãƒ ã«ç™»éŒ²ã—ãŸãƒ•ã‚£ãƒ«ã‚¿ã¨ã€ãƒ•ã‚©ãƒ¼ãƒ ãŒä¿æŒã™ã‚‹å€¤ã®æ¤œè¨¼ã‚’isValid()ã§è¡Œã†
             if ($form->isValid())
             {
-                // ¥æ¡¼¥¶¡¼¥â¥Ç¥ë¤ÎÃÍ¤ò½é´ü²½
+                // ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ¢ãƒ‡ãƒ«ã®å€¤ã‚’åˆæœŸåŒ–
                 $user->exchangeArray($form->getData());
-                // DBÅÐÏ¿
+                // DBç™»éŒ²
                 $this->getUserTable()->saveUser($user);
                 return $this->redirect()->toRoute('ec', array(
                     'controller' => 'user',
@@ -134,7 +123,7 @@ class UserController extends AbstractActionController
                 ));
                 
             }
-            // ¥Ð¥ê¥Ç¡¼¥·¥ç¥ó¤¬ÄÌ¤é¤Ê¤«¤Ã¤¿¾ì¹ç¡¢¥¨¥é¡¼¥á¥Ã¥»¡¼¥¸¤òÉ½¼¨
+            // ãƒãƒªãƒ‡ãƒ¼ã‚·ãƒ§ãƒ³ãŒé€šã‚‰ãªã‹ã£ãŸå ´åˆã€ã‚¨ãƒ©ãƒ¼ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’è¡¨ç¤º
             else {
                 $message = [];
                 foreach ($form->getMessages() as $messageId => $message){
@@ -145,30 +134,30 @@ class UserController extends AbstractActionController
             }
         }
         
-        // ¥Ó¥å¡¼¤ØÅÏ¤¹ÃÍ¤òÏ¢ÁÛÇÛÎó¤Ë¤Æ»ØÄê
+        // ãƒ“ãƒ¥ãƒ¼ã¸æ¸¡ã™å€¤ã‚’é€£æƒ³é…åˆ—ã«ã¦æŒ‡å®š
         $values = array(
             'form' => $form,
         );
         
-        // ¥Ó¥å¡¼¤òºîÀ®¤·¡¢ÃÍ¤ò¥»¥Ã¥È
+        // ãƒ“ãƒ¥ãƒ¼ã‚’ä½œæˆã—ã€å€¤ã‚’ã‚»ãƒƒãƒˆ
         $view = new ViewModel( $values );
         
-        // ¥Ó¥å¡¼¤òÊÖµÑ
+        // ãƒ“ãƒ¥ãƒ¼ã‚’è¿”å´
         return $view;
         
     }
     
-    //¥æ¡¼¥¶¾ðÊóÊÔ½¸²èÌÌ
+    //ãƒ¦ãƒ¼ã‚¶æƒ…å ±ç·¨é›†ç”»é¢
     public function editAction()
     {
-        // ¥í¥°¥¤¥ó¥æ¡¼¥¶¾ðÊó¤ò¼èÆÀ¤¹¤ë
+        // ãƒ­ã‚°ã‚¤ãƒ³ãƒ¦ãƒ¼ã‚¶æƒ…å ±ã‚’å–å¾—ã™ã‚‹
         $auth = new Auth();
         $login_user = $auth->getLoginUser();
 
-        // ¥í¥°¥¤¥ó¤·¤Æ¤¤¤Ê¤±¤ì¤Ð¥í¥°¥¤¥ó²èÌÌ¤ØÁ«°Ü¤µ¤»¤ë
+        // ãƒ­ã‚°ã‚¤ãƒ³ã—ã¦ã„ãªã‘ã‚Œã°ãƒ­ã‚°ã‚¤ãƒ³ç”»é¢ã¸é·ç§»ã•ã›ã‚‹
         if( ! $login_user->id ){
 
-            // ¥Õ¥é¥Ã¥·¥å¥Þ¥Í¡¼¥¸¥ã¤Ø¼õ¤±ÅÏ¤¹¥á¥Ã¥»¡¼¥¸¤òÄÉ²Ã¤¹¤ë
+            // ãƒ•ãƒ©ãƒƒã‚·ãƒ¥ãƒžãƒãƒ¼ã‚¸ãƒ£ã¸å—ã‘æ¸¡ã™ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’è¿½åŠ ã™ã‚‹
             $this->flashMessenger()->addMessage( "Not Edit" );
 
             return $this->redirect()->toRoute('ec', array(
@@ -178,7 +167,7 @@ class UserController extends AbstractActionController
         }
         $user = $this->getUserTable()->getUser($login_user->id);
 
-        // id¤¬ÀßÄê¤µ¤ì¤Æ¤¤¤Ê¤±¤ì¤Ð¥æ¡¼¥¶°ìÍ÷²èÌÌ¤Ë¥ê¥À¥¤¥ì¥¯¥È
+        // idãŒè¨­å®šã•ã‚Œã¦ã„ãªã‘ã‚Œã°ãƒ¦ãƒ¼ã‚¶ä¸€è¦§ç”»é¢ã«ãƒªãƒ€ã‚¤ãƒ¬ã‚¯ãƒˆ
         $id = $login_user->id;
         if (!$id){
             return $this->redirect()->toRoute('ec', array(
@@ -189,12 +178,12 @@ class UserController extends AbstractActionController
 //        $user = $this->getUserTable()->getUser($id);
         $form = new UserForm;
         $form->bind($user);
-        $form->get('submit')->setAttribute('value', 'edit');
+        $form->get('submit')->setAttribute('value', 'æ›´æ–°');
         
         $request = $this->getRequest();
         if ($request->isPost()){
-            // ËÝÌõ¥Õ¥¡¥¤¥ë¤ÎÅ¬ÍÑ
-//            $this->getTranslator->addTranslationFile('phparrray','¥Ñ¥¹É½µ­');
+            // ç¿»è¨³ãƒ•ã‚¡ã‚¤ãƒ«ã®é©ç”¨
+//            $this->getTranslator->addTranslationFile('phparrray','ãƒ‘ã‚¹è¡¨è¨˜');
             
             $form->setInputFilter($user->getInputfilter());
             $form->setData($request->getPost());
@@ -206,8 +195,8 @@ class UserController extends AbstractActionController
                     'controller' => 'user',
                     'action' => 'index'
                 ));
-                // °ìÍ÷²èÌÌ¤Ç°Ê²¼¤Î¥á¥Ã¥»¡¼¥¸¤òÉ½¼¨¤¹¤ë
-                $this->flashMessenger()->addMessage( $user->name . "¤µ¤ó¤Î¾ðÊó¤òÊÔ½¸¤·¤Þ¤·¤¿¡£" );
+                // ä¸€è¦§ç”»é¢ã§ä»¥ä¸‹ã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’è¡¨ç¤ºã™ã‚‹
+                $this->flashMessenger()->addMessage( $user->name . "ã•ã‚“ã®æƒ…å ±ã‚’ç·¨é›†ã—ã¾ã—ãŸã€‚" );
 
             }
         }
@@ -221,19 +210,19 @@ class UserController extends AbstractActionController
         return $view;
     }
     
-    // ¥æ¡¼¥¶¾ðÊóºï½ü²èÌÌ
+    // ãƒ¦ãƒ¼ã‚¶æƒ…å ±å‰Šé™¤ç”»é¢
     public function deleteAction()
     {
-        // ¥í¥°¥¤¥ó¥æ¡¼¥¶¤Î¤ßºï½ü¤Ç¤­¤ë
-        //  ¥í¥°¥¤¥ó¥æ¡¼¥¶¾ðÊó¤ò¼èÆÀ¤¹¤ë
+        // ãƒ­ã‚°ã‚¤ãƒ³ãƒ¦ãƒ¼ã‚¶ã®ã¿å‰Šé™¤ã§ãã‚‹
+        //  ãƒ­ã‚°ã‚¤ãƒ³ãƒ¦ãƒ¼ã‚¶æƒ…å ±ã‚’å–å¾—ã™ã‚‹
         $auth = new Auth();
         $login_user = $auth->getLoginUser();
 
-        //  ¥í¥°¥¤¥ó¤·¤Æ¤¤¤Ê¤±¤ì¤Ð¥í¥°¥¤¥ó²èÌÌ¤ØÁ«°Ü¤µ¤»¤ë
+        //  ãƒ­ã‚°ã‚¤ãƒ³ã—ã¦ã„ãªã‘ã‚Œã°ãƒ­ã‚°ã‚¤ãƒ³ç”»é¢ã¸é·ç§»ã•ã›ã‚‹
         if( ! $login_user->id ){
 
-            // ¥Õ¥é¥Ã¥·¥å¥Þ¥Í¡¼¥¸¥ã¤Ø¼õ¤±ÅÏ¤¹¥á¥Ã¥»¡¼¥¸¤òÄÉ²Ã¤¹¤ë
-            $this->flashMessenger()->addMessage( "Not Delete" );
+            // ãƒ•ãƒ©ãƒƒã‚·ãƒ¥ãƒžãƒãƒ¼ã‚¸ãƒ£ã¸å—ã‘æ¸¡ã™ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’è¿½åŠ ã™ã‚‹
+            $this->flashMessenger()->addMessage( "å‰Šé™¤ã§ãã¾ã›ã‚“ã§ã—ãŸ" );
 
             return $this->redirect()->toRoute('ec', array(
                 'controller' => 'index',
@@ -242,7 +231,7 @@ class UserController extends AbstractActionController
         }         
         $user = $this->getUserTable()->getUser($login_user->id);
         
-        // ¥í¥°¥¤¥óid¤ò¼èÆÀ
+        // ãƒ­ã‚°ã‚¤ãƒ³idã‚’å–å¾—
         $id = $login_user->id;
             if (!$id){
                 return $this->redirect()->toRoute('ec', array(
@@ -264,8 +253,8 @@ class UserController extends AbstractActionController
                 'controller' => 'user',
                 'action' => 'index'
             ));
-            // °ìÍ÷²èÌÌ¤Ç°Ê²¼¤Î¥á¥Ã¥»¡¼¥¸¤òÉ½¼¨¤¹¤ë
-            $this->flashMessenger()->addMessage( $user->name . " is delete" );
+            // ä¸€è¦§ç”»é¢ã§ä»¥ä¸‹ã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’è¡¨ç¤ºã™ã‚‹
+            $this->flashMessenger()->addMessage( $user->name . "ã•ã‚“ãŒã»ã£ã“ã‚Šã™ã¨ã‹ã‚‰é€€ä¼šã—ã¾ã—ãŸ" );
             
         }
         
@@ -281,19 +270,19 @@ class UserController extends AbstractActionController
     }
     
     /*
-     * ¥í¥°¥¤¥ó¸å¡¢¥Þ¥¤¥Ú¡¼¥¸¡Ê¾ÜºÙ²èÌÌ¡Ë¤ËÁ«°Ü
+     * ãƒ­ã‚°ã‚¤ãƒ³å¾Œã€ãƒžã‚¤ãƒšãƒ¼ã‚¸ï¼ˆè©³ç´°ç”»é¢ï¼‰ã«é·ç§»
      */
     public function mypageAction()
     {
-        //  ¥í¥°¥¤¥ó¥æ¡¼¥¶¾ðÊó¤ò¼èÆÀ¤¹¤ë
+        //  ãƒ­ã‚°ã‚¤ãƒ³ãƒ¦ãƒ¼ã‚¶æƒ…å ±ã‚’å–å¾—ã™ã‚‹
         $auth = new Auth();
         $login_user = $auth->getLoginUser();
 
-        //  ¥í¥°¥¤¥ó¤·¤Æ¤¤¤Ê¤±¤ì¤Ð¥í¥°¥¤¥ó²èÌÌ¤ØÁ«°Ü¤µ¤»¤ë
+        //  ãƒ­ã‚°ã‚¤ãƒ³ã—ã¦ã„ãªã‘ã‚Œã°ãƒ­ã‚°ã‚¤ãƒ³ç”»é¢ã¸é·ç§»ã•ã›ã‚‹
         if( ! $login_user->id ){
 
-            // ¥Õ¥é¥Ã¥·¥å¥Þ¥Í¡¼¥¸¥ã¤Ø¼õ¤±ÅÏ¤¹¥á¥Ã¥»¡¼¥¸¤òÄÉ²Ã¤¹¤ë
-            $this->flashMessenger()->addMessage( "plese login" );
+            // ãƒ•ãƒ©ãƒƒã‚·ãƒ¥ãƒžãƒãƒ¼ã‚¸ãƒ£ã¸å—ã‘æ¸¡ã™ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’è¿½åŠ ã™ã‚‹
+            $this->flashMessenger()->addMessage( "ãƒ­ã‚°ã‚¤ãƒ³ã—ã¦ãã ã•ã„" );
 
             return $this->redirect()->toRoute('ec', array(
                 'controller' => 'index',
@@ -301,7 +290,7 @@ class UserController extends AbstractActionController
             ));
         }
 
-        //  ¥Þ¥¤¥Ú¡¼¥¸¤È¤·¤Æ¡¢IDÉÕ¤Ç¾ÜºÙ²èÌÌ¤Ø¥ê¥À¥¤¥ì¥¯¥È¤µ¤»¤ë
+        //  ãƒžã‚¤ãƒšãƒ¼ã‚¸ã¨ã—ã¦ã€IDä»˜ã§è©³ç´°ç”»é¢ã¸ãƒªãƒ€ã‚¤ãƒ¬ã‚¯ãƒˆã•ã›ã‚‹
         return $this->redirect()->toRoute('ec', array(
             'controller' => 'user',
             'action'     => 'detail',
@@ -311,7 +300,7 @@ class UserController extends AbstractActionController
 
     
     
-    // ServiceManager¤ÇÀ¸À®¤µ¤ì¤¿¥¤¥ó¥¹¥¿¥ó¥¹¤ò¼èÆÀ
+    // ServiceManagerã§ç”Ÿæˆã•ã‚ŒãŸã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’å–å¾—
     public function getUserTable()
     {
         if (!$this->userTable){
@@ -321,7 +310,7 @@ class UserController extends AbstractActionController
         return $this->userTable;
     }
     
-    // ËÝÌõ¥Õ¥¡¥¤¥ë¤Î»ÈÍÑ
+    // ç¿»è¨³ãƒ•ã‚¡ã‚¤ãƒ«ã®ä½¿ç”¨
     public function getTranslator($param)
     {
         if (!$this->translator){

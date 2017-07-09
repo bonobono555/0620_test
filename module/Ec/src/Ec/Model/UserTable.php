@@ -15,14 +15,14 @@ class UserTable
         
     }
     
-    // Á´¤Æ¤Î¥ì¥³¡¼¥É¤ò¼èÆÀ
+    // å…¨ã¦ã®ãƒ¬ã‚³ãƒ¼ãƒ‰ã‚’å–å¾—
     public function fetchAll()
     {
         $resultSet = $this->tableGateway->select();
         return $resultSet;
     }
     
-    // selectÊ¸
+    // selectæ–‡
     public function getUser($id)
     {
         $id = (int) $id;
@@ -34,13 +34,13 @@ class UserTable
         return $row;
     }
     
-    /* ¥ì¥³¡¼¥É¿·µ¬ºîÀ®¡¦¹¹¿·
+    /* ãƒ¬ã‚³ãƒ¼ãƒ‰æ–°è¦ä½œæˆãƒ»æ›´æ–°
      * 
-     * @param array $user ¥æ¡¼¥¶¾ğÊó¥â¥Ç¥ë¥¯¥é¥¹
+     * @param array $user ãƒ¦ãƒ¼ã‚¶æƒ…å ±ãƒ¢ãƒ‡ãƒ«ã‚¯ãƒ©ã‚¹
      */
     public function saveUser(User $user)
     {
-        // °ú¿ô¤òÇÛÎó¤ËÃÖ¤­´¹¤¨
+        // å¼•æ•°ã‚’é…åˆ—ã«ç½®ãæ›ãˆ
         $data = array(
             'id' => $user->id,
             'name' => $user->name,
@@ -52,12 +52,12 @@ class UserTable
             );
         $id = (int)$user->id;
         
-        // ID¤¬¤Ê¤±¤ì¤ĞINSERT
+        // IDãŒãªã‘ã‚Œã°INSERT
         if ($id == 0) {
             $this->tableGateway->insert($data);
-        // ID¤¬¤¢¤ì¤ĞUPDATE    
+        // IDãŒã‚ã‚Œã°UPDATE  
         } else {
-            // ID¾ğÊó¤ò¤â¤È¤Ë¥ì¥³¡¼¥É¼èÆÀ
+            // IDæƒ…å ±ã‚’ã‚‚ã¨ã«ãƒ¬ã‚³ãƒ¼ãƒ‰å–å¾—
             if ( $this->getUser($id)){
                 $this->tableGateway->update($data, array('id' => $id));
             } else {
@@ -66,7 +66,7 @@ class UserTable
         }
     }
     
-    // ¥ì¥³¡¼¥Éºï½ü
+    // ãƒ¬ã‚³ãƒ¼ãƒ‰å‰Šé™¤
     public function deleteUser($id)
     {
         $this->tableGateway->delete(array('id' => $id));

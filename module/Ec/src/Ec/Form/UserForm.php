@@ -11,7 +11,7 @@ namespace Ec\Form;
 use Zend\Form\Form;
 
 /**
- * �ե���������ΤޤȤ�
+ * ユーザーテーブルのフォーム
  *
  * @author onoeadusa
  */
@@ -21,10 +21,10 @@ class UserForm  extends Form
     {
         parent::__construct('user');
         
-        // ���ȥ�ӥ塼��
+        // アトリビュート
         $this->setAttribute('method', 'post');
         
-        // �ե��������Ǥ��ɲ�
+        // フォーム要素の追加
         $this->add(array(
             'name' => 'id',
             'attributes' => array(
@@ -38,8 +38,8 @@ class UserForm  extends Form
                 'type' => 'text',
             ),
             'options' => array(
-                // viewɽ��
-                'label' => 'name'
+                // view表示
+                'label' => 'お名前'
             ),
         ));
         
@@ -49,7 +49,7 @@ class UserForm  extends Form
                 'type' => 'email',
             ),
             'options' => array(
-                'label' => 'email !required!'
+                'label' => 'メールアドレス(必須)'
             ),
         ));
         
@@ -59,7 +59,7 @@ class UserForm  extends Form
                 'type' => 'password',
             ),
             'options' => array(
-                'label' => 'password !required!'
+                'label' => 'パスワード(必須)'
             ),
         ));
         
@@ -71,7 +71,7 @@ class UserForm  extends Form
                 'cols' => 5,
             ),
             'options' => array(
-                'label' => 'jikosyoukai'
+                'label' => '自己紹介'
             ),
         ));
         
@@ -90,7 +90,7 @@ class UserForm  extends Form
             'attributes' => array(
                 'type' => 'submit',
                 'value' => 'Go',
-                'label' => 'submitbutton'
+                'label' => '登録'
             ),
         ));
     }

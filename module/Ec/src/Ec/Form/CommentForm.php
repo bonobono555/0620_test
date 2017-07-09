@@ -5,7 +5,7 @@ namespace Ec\Form;
 use Zend\Form\Form;
 
 /**
- * ·Ç¼¨ÈÄ¥³¥á¥ó¥ÈÅê¹ÆÍÑ¥Õ¥©¡¼¥à
+ * æ²ç¤ºæ¿ã‚³ãƒ¡ãƒ³ãƒˆæŠ•ç¨¿ç”¨ãƒ•ã‚©ãƒ¼ãƒ 
  *
  * @author onoeadusa
  */
@@ -27,7 +27,7 @@ class CommentForm extends Form
                 'type'  => 'text',
             ),
             'options' => array(
-                'label' => 'TITLE',
+                'label' => 'ã‚¿ã‚¤ãƒˆãƒ«',
             ),
         ));
         $this->add(array(
@@ -38,7 +38,7 @@ class CommentForm extends Form
                 'cols'  => 5,
             ),
             'options' => array(
-                'label' => 'COMMENT',
+                'label' => 'å†…å®¹',
             ),
         ));
         $this->add(array(

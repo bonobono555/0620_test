@@ -11,7 +11,7 @@ use Ec\Model\User;
 use Ec\Form\UserForm;
 
 /**
- * ·Ç¼¨ÈÄ´ÉÍı¥³¥ó¥È¥í¡¼¥é
+ * æ²ç¤ºæ¿ç®¡ç†ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©
  *
  * @author onoeadusa
  */
@@ -22,21 +22,21 @@ class CommentController extends AbstractActionController
     protected $userTable;
     
     /*
-     * ¥³¥á¥ó¥È°ìÍ÷²èÌÌ
+     * ã‚³ãƒ¡ãƒ³ãƒˆä¸€è¦§ç”»é¢
      */
     public function indexAction()
     {
-        // ¥Õ¥é¥Ã¥·¥å¥Ş¥Í¡¼¥¸¥ã¡¼¤ò¼èÆÀ
+        // ãƒ•ãƒ©ãƒƒã‚·ãƒ¥ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã‚’å–å¾—
         $flashMessenger = $this->flashMessenger();
  
-        // ¸½ºß¤ÎÍ×µáÃæ¤ËÄÉ²Ã¤µ¤ì¤¿¤â¤Î¤¬¤¢¤ë¤Î¤«¥Á¥§¥Ã¥¯
+        // ç¾åœ¨ã®è¦æ±‚ä¸­ã«è¿½åŠ ã•ã‚ŒãŸã‚‚ã®ãŒã‚ã‚‹ã®ã‹ãƒã‚§ãƒƒã‚¯
         $message = '';
         if( $flashMessenger->hasMessages() ){
  
-            // ¥á¥Ã¥»¡¼¥¸¤Î¼èÆÀ¡ÊÇÛÎó¡Ë
+            // ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®å–å¾—ï¼ˆé…åˆ—ï¼‰
             $message_array = $flashMessenger->getMessages();
 
-            // ½é¤á¤Î¥á¥Ã¥»¡¼¥¸¤ò¼èÆÀ
+            // åˆã‚ã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’å–å¾—
            $message = $message_array[0];
         }
 
@@ -50,19 +50,19 @@ class CommentController extends AbstractActionController
     }
     
     /*
-     * ¥³¥á¥ó¥È¿·µ¬Åê¹Æ
+     * ã‚³ãƒ¡ãƒ³ãƒˆæ–°è¦æŠ•ç¨¿
      */
     public function addAction()
     {
-        // ¥í¥°¥¤¥ó¥æ¡¼¥¶¾ğÊó¤ò¼èÆÀ¤¹¤ë
+        // ãƒ­ã‚°ã‚¤ãƒ³ãƒ¦ãƒ¼ã‚¶æƒ…å ±ã‚’å–å¾—ã™ã‚‹
         $auth = new Auth();
         $login_user = $auth->getLoginUser();
 
-        // ¥í¥°¥¤¥ó¤·¤Æ¤¤¤Ê¤±¤ì¤Ğ¥í¥°¥¤¥ó²èÌÌ¤ØÁ«°Ü¤µ¤»¤ë
+        // ãƒ­ã‚°ã‚¤ãƒ³ã—ã¦ã„ãªã‘ã‚Œã°ãƒ­ã‚°ã‚¤ãƒ³ç”»é¢ã¸é·ç§»ã•ã›ã‚‹
         if( ! $login_user->id ){
 
-            // ¥Õ¥é¥Ã¥·¥å¥Ş¥Í¡¼¥¸¥ã¤Ø¼õ¤±ÅÏ¤¹¥á¥Ã¥»¡¼¥¸¤òÄÉ²Ã¤¹¤ë
-            $this->flashMessenger()->addMessage( "Login is required to post comments" );
+            // ãƒ•ãƒ©ãƒƒã‚·ãƒ¥ãƒãƒãƒ¼ã‚¸ãƒ£ã¸å—ã‘æ¸¡ã™ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’è¿½åŠ ã™ã‚‹
+            $this->flashMessenger()->addMessage( "ã‚³ãƒ¡ãƒ³ãƒˆã‚’æŠ•ç¨¿ã™ã‚‹ã«ã¯ãƒ­ã‚°ã‚¤ãƒ³ãŒå¿…è¦ã§ã™ã€‚" );
 
             return $this->redirect()->toRoute('ec', array(
                 'controller' => 'index',
@@ -70,56 +70,56 @@ class CommentController extends AbstractActionController
             ));
         }
         
-        // ¥Õ¥©¡¼¥à¥ª¥Ö¥¸¥§¥¯¥ÈºîÀ®
+        // ãƒ•ã‚©ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆä½œæˆ
         $form = new CommentForm();
-        $form->get('submit')->setValue('comment post');
+        $form->get('submit')->setValue('ã»ã£ã“ã‚Šã‚’æŠ•ç¨¿');
         $form->get('user_id')->setValue($login_user->id);
         
         $request = $this->getRequest();
         if ($request->isPost()) {
 
-            //  ¥È¥é¥ó¥¹¥ì¡¼¥¿¡¼¤ËËİÌõ¥Õ¥¡¥¤¥ë¤òÆÉ¤ß¹ş¤Ş¤»¤ë
+            //  ãƒˆãƒ©ãƒ³ã‚¹ãƒ¬ãƒ¼ã‚¿ãƒ¼ã«ç¿»è¨³ãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã¾ã›ã‚‹
 //            $this->getTranslator()->addTranslationFile('phparray', 'C:\xampp\Library\ZendFramework-2.2.2\resources\languages\ja\Zend_Validate.php');
 
             $comment = new Comment();
 
-            // ¥³¥á¥ó¥È¥â¥Ç¥ëÍÑ¤Î¥Õ¥£¥ë¥¿¤ò¥Õ¥©¡¼¥à¤Î¥Õ¥£¥ë¥¿¤È¤·¤ÆÀßÄê
+            // ã‚³ãƒ¡ãƒ³ãƒˆãƒ¢ãƒ‡ãƒ«ç”¨ã®ãƒ•ã‚£ãƒ«ã‚¿ã‚’ãƒ•ã‚©ãƒ¼ãƒ ã®ãƒ•ã‚£ãƒ«ã‚¿ã¨ã—ã¦è¨­å®š
             $form->setInputFilter($comment->getInputFilter());
-            // postÅê¹Æ¤µ¤ì¤¿ÃÍ¤òsetData()¤Ë¤Æ¥Õ¥©¡¼¥àÍ×ÁÇ¤ËÀßÄê            
+            // postæŠ•ç¨¿ã•ã‚ŒãŸå€¤ã‚’setData()ã«ã¦ãƒ•ã‚©ãƒ¼ãƒ è¦ç´ ã«è¨­å®š       
             $form->setData($request->getPost());
 
             if ($form->isValid()) {
-                // ¥³¥á¥ó¥È¥â¥Ç¥ë¤ÎÃÍ¤ò½é´ü²½
+                // ã‚³ãƒ¡ãƒ³ãƒˆãƒ¢ãƒ‡ãƒ«ã®å€¤ã‚’åˆæœŸåŒ–
                 $comment->exchangeArray($form->getData());
 
-                //  ¥¿¥¤¥È¥ë¤ÎÅê¹Æ¤¬Ìµ¤¤¾ì¹ç¤ÏËÜÊ¸¤ò°úÍÑ¤¹¤ë
+                //  ã‚¿ã‚¤ãƒˆãƒ«ã®æŠ•ç¨¿ãŒç„¡ã„å ´åˆã¯æœ¬æ–‡ã‚’å¼•ç”¨ã™ã‚‹
                 if( strlen( $comment->title ) <= 0 ){
                     $comment->title = mb_strimwidth( $comment->comment, 0, 250, '...', 'UTF-8' );
                 }                
-                // Comment¥Æ¡¼¥Ö¥ë¤ØDBÅĞÏ¿
+                // Commentãƒ†ãƒ¼ãƒ–ãƒ«ã¸DBç™»éŒ²
                 $this->getCommentTable()->saveComment($comment);
 
-                // ¥Õ¥é¥Ã¥·¥å¥Ş¥Í¡¼¥¸¥ã¤Ø¼õ¤±ÅÏ¤¹¥á¥Ã¥»¡¼¥¸¤òÄÉ²Ã¤¹¤ë
-                $this->flashMessenger()->addMessage( "Comment add" );
+                // ãƒ•ãƒ©ãƒƒã‚·ãƒ¥ãƒãƒãƒ¼ã‚¸ãƒ£ã¸å—ã‘æ¸¡ã™ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’è¿½åŠ ã™ã‚‹
+                $this->flashMessenger()->addMessage( "ã»ã£ã“ã‚Šã‚’æŠ•ç¨¿ã—ã¾ã—ãŸ" );
 
                 return $this->redirect()->toRoute('ec', array(
                     'controller' => 'comment',
                     'action' => 'index'
                 ));
             }
-            // ¥Ğ¥ê¥Ç¡¼¥·¥ç¥ó¤¬ÄÌ¤é¤Ê¤«¤Ã¤¿¾ì¹ç¡¢¥¨¥é¡¼¥á¥Ã¥»¡¼¥¸¤òÉ½¼¨
+            // ãƒãƒªãƒ‡ãƒ¼ã‚·ãƒ§ãƒ³ãŒé€šã‚‰ãªã‹ã£ãŸå ´åˆã€ã‚¨ãƒ©ãƒ¼ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’è¡¨ç¤º
             else {
                 $message = [];
                 foreach ($form->getMessages() as $messageId => $message){
-                    var_dump($messageId);
+//                    var_dump($messageId);
                     echo "<br>";
-                    var_dump($message);                
+//                    var_dump($message);                
                 }
             }
         }
         
-        // POSTÅê¹Æ¤Ç¤Ê¤¤¥ê¥¯¥¨¥¹¥È¤Î¾ì¹ç¡¢¤â¤·¤¯¤Ï¥Õ¥£¥ë¥¿¥Á¥§¥Ã¥¯¤ÇÃÆ¤«¤ì¤¿¾ì¹ç
-        // ¥³¥á¥ó¥ÈÅê¹Æ²èÌÌ¤òÉ½¼¨
+        // POSTæŠ•ç¨¿ã§ãªã„ãƒªã‚¯ã‚¨ã‚¹ãƒˆã®å ´åˆã€ã‚‚ã—ãã¯ãƒ•ã‚£ãƒ«ã‚¿ãƒã‚§ãƒƒã‚¯ã§å¼¾ã‹ã‚ŒãŸå ´åˆ
+        // ã‚³ãƒ¡ãƒ³ãƒˆæŠ•ç¨¿ç”»é¢ã‚’è¡¨ç¤º
         $values = array(
             'form' => $form,
         );
@@ -129,7 +129,7 @@ class CommentController extends AbstractActionController
         
     }
 
-    // ¥³¥á¥ó¥È¾ÜºÙ²èÌÌ
+    // ã‚³ãƒ¡ãƒ³ãƒˆè©³ç´°ç”»é¢
     public function detailAction()
     {
         $id = (int) $this->params()->fromRoute('id', 0);
@@ -143,37 +143,37 @@ class CommentController extends AbstractActionController
         $comment = $this->getCommentTable()->getComment($id);
         $comment_user = $this->getUserTable()->getUser($comment->user_id);
         
-        // ¥Õ¥é¥Ã¥·¥å¥Ş¥Í¡¼¥¸¥ã¡¼¤ò¼èÆÀ
+        // ãƒ•ãƒ©ãƒƒã‚·ãƒ¥ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã‚’å–å¾—
         $flashMessenger = $this->flashMessenger();
  
-        // ¸½ºß¤ÎÍ×µáÃæ¤ËÄÉ²Ã¤µ¤ì¤¿¤â¤Î¤¬¤¢¤ë¤Î¤«¥Á¥§¥Ã¥¯
+        // ç¾åœ¨ã®è¦æ±‚ä¸­ã«è¿½åŠ ã•ã‚ŒãŸã‚‚ã®ãŒã‚ã‚‹ã®ã‹ãƒã‚§ãƒƒã‚¯
         $message = '';
         if( $flashMessenger->hasMessages() ){
  
-            // ¥á¥Ã¥»¡¼¥¸¤Î¼èÆÀ¡ÊÇÛÎó¡Ë
+            // ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®å–å¾—ï¼ˆé…åˆ—ï¼‰
             $message_array = $flashMessenger->getMessages();
 
-            // ½é¤á¤Î¥á¥Ã¥»¡¼¥¸¤ò¼èÆÀ
+            // åˆã‚ã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’å–å¾—
            $message = $message_array[0];
         }
 
-        //  ¥í¥°¥¤¥ó¥æ¡¼¥¶¾ğÊó¤ò¼èÆÀ¤¹¤ë
+        // ãƒ­ã‚°ã‚¤ãƒ³ãƒ¦ãƒ¼ã‚¶æƒ…å ±ã‚’å–å¾—ã™ã‚‹
         $auth = new Auth();
         $login_user = $auth->getLoginUser();
 
         $form = new CommentForm();
-        $form->get('submit')->setValue('Comment add');
+        $form->get('submit')->setValue('ã»ã£ã“ã‚Šã—ãŸ');
         $form->get('parent_id')->setValue($id);
         $form->get('user_id')->setValue($login_user->id);
         
         $request = $this->getRequest();
         if ($request->isPost()) {
 
-            //  ¥í¥°¥¤¥ó¤·¤Æ¤¤¤Ê¤±¤ì¤Ğ¥í¥°¥¤¥ó²èÌÌ¤ØÁ«°Ü¤µ¤»¤ë
+            //  ãƒ­ã‚°ã‚¤ãƒ³ã—ã¦ã„ãªã‘ã‚Œã°ãƒ­ã‚°ã‚¤ãƒ³ç”»é¢ã¸é·ç§»ã•ã›ã‚‹
             if( ! $login_user->id ){
 
-                // ¥Õ¥é¥Ã¥·¥å¥Ş¥Í¡¼¥¸¥ã¤Ø¼õ¤±ÅÏ¤¹¥á¥Ã¥»¡¼¥¸¤òÄÉ²Ã¤¹¤ë
-                $this->flashMessenger()->addMessage( "login hissu!" );
+                // ãƒ•ãƒ©ãƒƒã‚·ãƒ¥ãƒãƒãƒ¼ã‚¸ãƒ£ã¸å—ã‘æ¸¡ã™ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’è¿½åŠ ã™ã‚‹
+                $this->flashMessenger()->addMessage( "ãƒ­ã‚°ã‚¤ãƒ³ãŒå¿…è¦ã§ã™" );
 
                 return $this->redirect()->toRoute('ec', array(
                     'controller' => 'index',
@@ -181,7 +181,7 @@ class CommentController extends AbstractActionController
                 ));
             }
 
-            //  ¥È¥é¥ó¥¹¥ì¡¼¥¿¡¼¤ËËİÌõ¥Õ¥¡¥¤¥ë¤òÆÉ¤ß¹ş¤Ş¤»¤ë
+            //  ãƒˆãƒ©ãƒ³ã‚¹ãƒ¬ãƒ¼ã‚¿ãƒ¼ã«ç¿»è¨³ãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã¾ã›ã‚‹
 //            $this->getTranslator()->addTranslationFile('phparray', 'C:\xampp\Library\ZendFramework-2.2.2\resources\languages\ja\Zend_Validate.php');
 
             $comment_res = new Comment();
@@ -193,8 +193,8 @@ class CommentController extends AbstractActionController
                 $comment_res->exchangeArray($form->getData());
                 $this->getCommentTable()->saveComment($comment_res);
 
-                // ¥Õ¥é¥Ã¥·¥å¥Ş¥Í¡¼¥¸¥ã¤Ø¼õ¤±ÅÏ¤¹¥á¥Ã¥»¡¼¥¸¤òÄÉ²Ã¤¹¤ë
-                $this->flashMessenger()->addMessage( "Comment ADD" );
+                // ãƒ•ãƒ©ãƒƒã‚·ãƒ¥ãƒãƒãƒ¼ã‚¸ãƒ£ã¸å—ã‘æ¸¡ã™ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’è¿½åŠ ã™ã‚‹
+                $this->flashMessenger()->addMessage( "ã»ã£ã“ã‚Šã«å…±æ„Ÿã—ã¾ã—ãŸ" );
 
                 return $this->redirect()->toRoute('ec', array(
                     'controller' => 'comment',
@@ -218,7 +218,7 @@ class CommentController extends AbstractActionController
     }
     
     /*  
-     * ¥È¥é¥ó¥¹¥ì¡¼¥¿¡¼¤ò¼èÆÀ
+     * ãƒˆãƒ©ãƒ³ã‚¹ãƒ¬ãƒ¼ã‚¿ãƒ¼ã‚’å–å¾—
      */
     public function getTranslator()
     {
@@ -230,7 +230,7 @@ class CommentController extends AbstractActionController
     }
 
     /*  
-     * ¥³¥á¥ó¥È¥Æ¡¼¥Ö¥ë¤ò¼èÆÀ
+     * ã‚³ãƒ¡ãƒ³ãƒˆãƒ†ãƒ¼ãƒ–ãƒ«ã‚’å–å¾—
      */
     public function getCommentTable()
     {
@@ -242,7 +242,7 @@ class CommentController extends AbstractActionController
     }
 
     /* 
-     * ¥æ¡¼¥¶¥Æ¡¼¥Ö¥ë¤ò¼èÆÀ
+     * ãƒ¦ãƒ¼ã‚¶ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’å–å¾—
      */
     public function getUserTable()
     {
