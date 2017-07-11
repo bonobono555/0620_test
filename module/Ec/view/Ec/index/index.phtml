@@ -1,8 +1,21 @@
+<script>
+$(function() {
+  $('h1').mouseover(function() {
+      $('h5').hide('slow');
+  });
+  $('h1').mouseover(function() {
+      $('h5').show('slow');
+  });  
+});
+</script>
+
 <a></a>
 <div class="jumbotron">
     <h1><?php echo sprintf($this->translate('ほっこりすと'), '<span class="zf-green">', '</span>') ?></h1>
     <p><?php echo sprintf($this->translate('<br>ほっこりする、されるSNS <br><br>まずは「ほっこりすと」になって
 ほっこりエピソードを投稿してみよう'), '<a href="https://github.com/zendframework/ZendSkeletonApplication" target="_blank">', '</a>', \Zend\Version\Version::VERSION) ?></p>
+    
+    <h5>ほっ</h5>
     <p><a class="btn btn-success btn-lg" href="<?php echo $this->url('ec',
                     array('controller' => 'user',
                         'action' => 'add',
