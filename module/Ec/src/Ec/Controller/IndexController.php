@@ -141,6 +141,14 @@ class IndexController extends AbstractActionController
         ));
     }
     
+    /*
+     * 駅データ.jp api連携
+     */
+    public function trainAction()
+    {
+        return new ViewModel();        
+    }
+    
     
     
     
